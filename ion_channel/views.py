@@ -6,15 +6,14 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import json
 
 from form import *
-from formtools.wizard.views import SessionWizardView
+# from formtools.wizard.views import SessionWizardView
 from models import *
 
 
-@login_required(login_url='login')
 def index(request):
     return render(request, 'ion_channel/index.html')
 
-
+'''
 class ReferenceList(ListView):
     model = Reference
     context_object_name = 'references'
@@ -204,3 +203,4 @@ def save_graph_data(request):
         json.dumps(response_data),
         content_type="application/json"
     )
+'''

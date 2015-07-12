@@ -1,12 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
-
+'''
 class ParamDict(models.Model):
     name = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.name
+
 
 class KeyVal(models.Model):
     container = models.ForeignKey(ParamDict, db_index=True)
@@ -15,6 +16,8 @@ class KeyVal(models.Model):
 
     def __unicode__(self):
         return self.container
+
+
 
 Channel_Type_CHOICES = (
     ('Ca', 'Calcium Channel'),
@@ -221,3 +224,4 @@ class IonChannelModel(models.Model):
 
     def __unicode__(self):
         return self.channel_name + " " + str(self.date)
+'''

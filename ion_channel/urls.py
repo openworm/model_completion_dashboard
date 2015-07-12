@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from views import *
 from form import *
+from views import *
+
 
 urlpatterns = [
     url(r'^$', index, name='index'),
 
+    '''
     url(r'^reference/create/$', login_required(ReferenceCreate.as_view()), name='reference-create'),
     url(r'^reference$', login_required(ReferenceList.as_view()), name='reference-index'),
     url(r'^reference/update/(?P<pk>[0-9]+)$', login_required(ReferenceUpdate.as_view()), name='reference-update'),
@@ -51,5 +53,5 @@ urlpatterns = [
     url(r'^graph_data/(?P<graph_id>[0-9]+)$', login_required(GraphDataList.as_view()), name='graph-data-index'),
     url(r'^graph_data/create$', login_required(save_graph_data), name='graph-data-create'),
     url(r'^graph_data/delete/(?P<graph_id>[0-9]+)/(?P<pk>[0-9]+)/$', login_required(GraphDataDelete.as_view()), name='graph-data-delete'),
-
+    '''
 ]
