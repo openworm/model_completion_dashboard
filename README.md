@@ -2,3 +2,5 @@
 Model Completion Dashboard
 
 http://pyopenworm-pyopenworm.rhcloud.com/
+
+http://docs.openworm.org/en/latest/Projects/muscle-neuron-integration/#model-completion-dashboard
