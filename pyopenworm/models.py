@@ -104,12 +104,12 @@ class Reference(models.Model):
 
 class CellChannel(models.Model):
     cell = models.ForeignKey(Cell)
-    ion_channel = models.ForeignKey(IonChannel)
+    pyopenworm = models.ForeignKey(IonChannel)
     channel_density = models.FloatField(blank=True, null=True,verbose_name='Density of the channel in cell (1/m2)')
     reference = models.ForeignKey(Reference)
 
     def __unicode__(self):
-        return self.cell + " " + self.ion_channel
+        return self.cell + " " + self.pyopenworm
 
 
 class Experiment(models.Model):
@@ -135,7 +135,7 @@ Patch_Type_CHOICES = (
 
 class PatchClamp(models.Model):
     experiment = models.ForeignKey(Experiment)
-    ion_channel = models.ForeignKey(IonChannel)
+    pyopenworm = models.ForeignKey(IonChannel)
     type = models.CharField(max_length=200,choices=PatchClamp_Type_CHOICES)
     patch_type = models.CharField(max_length=200,choices=Patch_Type_CHOICES)
     Ca_concentration = models.FloatField(default=None, blank=True, null=True,verbose_name='Initial molar concentration of Calcium')
@@ -188,7 +188,7 @@ class Graph(models.Model):
 
     figure_ref_address = models.CharField(max_length=500,verbose_name='Figure number (e.g. 2A)')
     figure_ref_caption = models.TextField(verbose_name='Figure caption')
-    file = models.ImageField(upload_to='ion_channel/graph/%Y/%m/%d')
+    file = models.ImageField(upload_to='pyopenworm/graph/%Y/%m/%d')
 
     def __unicode__(self):
         return self.experiment+ " " + self.figure_ref_address

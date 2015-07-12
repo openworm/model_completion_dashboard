@@ -11,7 +11,7 @@ from models import *
 
 
 def index(request):
-    return render(request, 'ion_channel/index.html')
+    return render(request, 'pyopenworm/index.html')
 
 '''
 class ReferenceList(ListView):
@@ -23,7 +23,7 @@ class ReferenceCreate(CreateView):
     model = Reference
     form_class = ReferenceForm
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('ion_channel:reference-index')
+    success_url = reverse_lazy('pyopenworm:reference-index')
 
     def form_valid(self, form):
         form.instance.username = self.request.user
@@ -31,7 +31,7 @@ class ReferenceCreate(CreateView):
 
 
 class ReferenceWizard(SessionWizardView):
-    template_name = 'ion_channel/reference_auto_create_form.html'
+    template_name = 'pyopenworm/reference_auto_create_form.html'
 
     def done(self, form_list, **kwargs):
         data = self.get_cleaned_data_for_step('1')
@@ -48,7 +48,7 @@ class ReferenceWizard(SessionWizardView):
             instance.ion_channels.add(value.id)
         for value in cells.iterator():
             instance.ion_channels.add(value.id)
-        return redirect('/ion_channel/reference')
+        return redirect('/pyopenworm/reference')
 
     def get_form_initial(self, step):
         initial = {}
@@ -61,12 +61,12 @@ class ReferenceUpdate(UpdateView):
     model = Reference
     form_class = ReferenceForm
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('ion_channel:reference-index')
+    success_url = reverse_lazy('pyopenworm:reference-index')
 
 
 class ReferenceDelete(DeleteView):
     model = Reference
-    success_url = reverse_lazy('ion_channel:reference-index')
+    success_url = reverse_lazy('pyopenworm:reference-index')
 
 
 class ExperimentList(ListView):
@@ -78,7 +78,7 @@ class ExperimentCreate(CreateView):
     model = Experiment
     fields = ['reference']
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('ion_channel:experiment-index')
+    success_url = reverse_lazy('pyopenworm:experiment-index')
 
     def form_valid(self, form):
         form.instance.username = self.request.user
@@ -89,12 +89,12 @@ class ExperimentUpdate(UpdateView):
     model = Experiment
     fields = ['reference']
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('ion_channel:experiment-index')
+    success_url = reverse_lazy('pyopenworm:experiment-index')
 
 
 class ExperimentDelete(DeleteView):
     model = Experiment
-    success_url = reverse_lazy('ion_channel:experiment-index')
+    success_url = reverse_lazy('pyopenworm:experiment-index')
 
 
 class IonChannelList(ListView):
@@ -106,19 +106,19 @@ class IonChannelCreate(CreateView):
     model = IonChannelModel
     fields = '__all__'
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('ion_channel:ion-channel-index')
+    success_url = reverse_lazy('pyopenworm:ion-channel-index')
 
 
 class IonChannelUpdate(UpdateView):
     model = IonChannelModel
     fields = '__all__'
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('ion_channel:ion-channel-index')
+    success_url = reverse_lazy('pyopenworm:ion-channel-index')
 
 
 class IonChannelDelete(DeleteView):
     model = IonChannelModel
-    success_url = reverse_lazy('ion_channel:ion-channel-index')
+    success_url = reverse_lazy('pyopenworm:ion-channel-index')
 
 
 class PatchClampList(ListView):
@@ -130,19 +130,19 @@ class PatchClampCreate(CreateView):
     model = PatchClamp
     fields = '__all__'
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('ion_channel:patch-clamp-index')
+    success_url = reverse_lazy('pyopenworm:patch-clamp-index')
 
 
 class PatchClampUpdate(UpdateView):
     model = PatchClamp
     fields = '__all__'
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('ion_channel:patch-clamp-index')
+    success_url = reverse_lazy('pyopenworm:patch-clamp-index')
 
 
 class PatchClampDelete(DeleteView):
     model = PatchClamp
-    success_url = reverse_lazy('ion_channel:patch-clamp-index')
+    success_url = reverse_lazy('pyopenworm:patch-clamp-index')
 
 
 class GraphList(ListView):
@@ -154,19 +154,19 @@ class GraphCreate(CreateView):
     model = Graph
     fields = '__all__'
     template_name_suffix = '_create_form'
-    success_url = reverse_lazy('ion_channel:graph-index')
+    success_url = reverse_lazy('pyopenworm:graph-index')
 
 
 class GraphUpdate(UpdateView):
     model = Graph
     fields = '__all__'
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('ion_channel:graph-index')
+    success_url = reverse_lazy('pyopenworm:graph-index')
 
 
 class GraphDelete(DeleteView):
     model = Graph
-    success_url = reverse_lazy('ion_channel:graph-index')
+    success_url = reverse_lazy('pyopenworm:graph-index')
 
 
 class GraphDataList(ListView):
@@ -183,7 +183,7 @@ class GraphDataDelete(DeleteView):
     model = GraphData
 
     def get_success_url(self):
-        return reverse_lazy('ion_channel:graph-data-index', kwargs={'graph_id': self.object.graph_id})
+        return reverse_lazy('pyopenworm:graph-data-index', kwargs={'graph_id': self.object.graph_id})
 
 
 def save_graph_data(request):

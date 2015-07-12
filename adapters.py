@@ -11,7 +11,7 @@ else:
     from web_app import settings as defaults
     settings.configure(default_settings=defaults, DEBUG=True)
 
-import ion_channel.models as C
+import pyopenworm.models as C
 import PyOpenWorm as P
 from django.forms.models import model_to_dict
 
@@ -23,7 +23,7 @@ class PatchClampAdapter(object):
     Example usage ::
 
         >>> import adapters
-        >>> cw_patch = ion_channel.models.PatchClamp.objects.all()[0]    # get some saved patch-clamp experiment from CW
+        >>> cw_patch = pyopenworm.models.PatchClamp.objects.all()[0]    # get some saved patch-clamp experiment from CW
         >>> pca = adapters.PatchClampAdapter(cw_patch)    # create an adapter object with it
         >>> pca.get_pow()    # get back the corresponding PyOW model
         Experiment(reference=`Evidence(AssertsAllAbout(), year=`None', title=`SALAM', doi=`Salam')', Conditions())

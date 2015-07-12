@@ -40,8 +40,8 @@ class Migration(migrations.Migration):
                 ('y_axis_toSI', models.FloatField(default=1, verbose_name=b'Multiply by this value to convert to SI (e.g. 1e-3)')),
                 ('figure_ref_address', models.CharField(max_length=500, verbose_name=b'Figure number (e.g. 2A)')),
                 ('figure_ref_caption', models.TextField(verbose_name=b'Figure caption')),
-                ('file', models.ImageField(upload_to=b'ion_channel/graph/%Y/%m/%d')),
-                ('experiment', models.ForeignKey(blank=True, to='ion_channel.Experiment', null=True)),
+                ('file', models.ImageField(upload_to=b'pyopenworm/graph/%Y/%m/%d')),
+                ('experiment', models.ForeignKey(blank=True, to='pyopenworm.Experiment', null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('series_name', models.CharField(max_length=200)),
                 ('series_data', models.TextField()),
-                ('graph', models.ForeignKey(to='ion_channel.Graph')),
+                ('graph', models.ForeignKey(to='pyopenworm.Graph')),
             ],
         ),
         migrations.CreateModel(
@@ -79,9 +79,9 @@ class Migration(migrations.Migration):
                 ('score', models.FloatField(default=None, null=True, verbose_name=b'Evaluated Score', blank=True)),
                 ('date', models.DateTimeField(auto_now=True)),
                 ('neuroML_file', models.FilePathField()),
-                ('channel_name', models.ForeignKey(to='ion_channel.IonChannel')),
-                ('experiment', models.ForeignKey(to='ion_channel.Experiment')),
-                ('graph', models.ForeignKey(to='ion_channel.Graph')),
+                ('channel_name', models.ForeignKey(to='pyopenworm.IonChannel')),
+                ('experiment', models.ForeignKey(to='pyopenworm.Experiment')),
+                ('graph', models.ForeignKey(to='pyopenworm.Graph')),
             ],
         ),
         migrations.CreateModel(
@@ -106,7 +106,7 @@ class Migration(migrations.Migration):
                 ('initial_voltage', models.FloatField(null=True, verbose_name=b'Initial voltage for current-clamp (V)', blank=True)),
                 ('mutants', models.TextField(null=True, verbose_name=b'Additional ion channel mutants (e.g. nf100,n582)', blank=True)),
                 ('blockers', models.TextField(null=True, verbose_name=b'Ion channel blockers (e.g. 500e-6 Cd2+,)', blank=True)),
-                ('experiment', models.ForeignKey(to='ion_channel.Experiment')),
+                ('experiment', models.ForeignKey(to='pyopenworm.Experiment')),
             ],
         ),
         migrations.CreateModel(
@@ -121,14 +121,14 @@ class Migration(migrations.Migration):
                 ('create_date', models.DateTimeField(auto_now=True)),
                 ('subject', models.CharField(max_length=300, choices=[(b'Genomics', b'Genomics'), (b'Proteomics', b'Proteomics'), (b'Electrophysiology', b'Electrophysiology'), (b'Other', b'Other')])),
                 ('file_path', models.FilePathField(null=True, blank=True)),
-                ('channels', models.ManyToManyField(to='ion_channel.IonChannel')),
+                ('channels', models.ManyToManyField(to='pyopenworm.IonChannel')),
                 ('username', models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='ionchannelmodel',
             name='references',
-            field=models.ManyToManyField(to='ion_channel.Reference'),
+            field=models.ManyToManyField(to='pyopenworm.Reference'),
         ),
         migrations.AddField(
             model_name='ionchannelmodel',
@@ -138,12 +138,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='graph',
             name='patch_clamp',
-            field=models.ForeignKey(blank=True, to='ion_channel.PatchClamp', null=True),
+            field=models.ForeignKey(blank=True, to='pyopenworm.PatchClamp', null=True),
         ),
         migrations.AddField(
             model_name='experiment',
             name='reference',
-            field=models.ForeignKey(to='ion_channel.Reference'),
+            field=models.ForeignKey(to='pyopenworm.Reference'),
         ),
         migrations.AddField(
             model_name='experiment',
@@ -153,6 +153,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='cell',
             name='channels',
-            field=models.ManyToManyField(to='ion_channel.IonChannel'),
+            field=models.ManyToManyField(to='pyopenworm.IonChannel'),
         ),
     ]
