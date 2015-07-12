@@ -1,18 +1,19 @@
-import json
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
-from formtools.wizard.views import SessionWizardView
-from metapub import pubmedfetcher
-
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from models import *
+import json
+
 from form import *
+from formtools.wizard.views import SessionWizardView
+from models import *
+
 
 @login_required(login_url='login')
 def index(request):
     return render(request, 'ion_channel/index.html')
+
 
 class ReferenceList(ListView):
     model = Reference
@@ -29,8 +30,10 @@ class ReferenceCreate(CreateView):
         form.instance.username = self.request.user
         return super(ReferenceCreate, self).form_valid(form)
 
+
 class ReferenceWizard(SessionWizardView):
     template_name = 'ion_channel/reference_auto_create_form.html'
+
     def done(self, form_list, **kwargs):
         data = self.get_cleaned_data_for_step('1')
         data['username'] = self.request.user
@@ -52,23 +55,6 @@ class ReferenceWizard(SessionWizardView):
         initial = {}
         if step == '1':
             data = self.get_cleaned_data_for_step('0')
-            fetch = pubmedfetcher.PubMedFetcher()
-            if data['DOI'] != '':
-                article = fetch.article_by_doi(data['DOI'])
-            elif data['PMID'] != '':
-                article = fetch.article_by_pmid(data['PMID'])
-
-            initial['doi'] = article.doi
-            initial['PMID'] = article.pmid
-            initial['title'] = article.title
-            initial['citation'] = article.__str__()
-            initial['year'] = article.year
-            initial['authors'] = article.authors_str
-            initial['journal'] = article.journal
-            initial['volume'] = article.volume
-            initial['issue'] = article.issue
-            initial['pages'] = article.pages
-            initial['url'] = article.url
         return initial
 
 
@@ -98,6 +84,7 @@ class ExperimentCreate(CreateView):
     def form_valid(self, form):
         form.instance.username = self.request.user
         return super(ExperimentCreate, self).form_valid(form)
+
 
 class ExperimentUpdate(UpdateView):
     model = Experiment
@@ -201,7 +188,8 @@ class GraphDataDelete(DeleteView):
 
 
 def save_graph_data(request):
-    response_data = {'status': 'error', 'result': 'Saving graph data has been failed'}
+    response_data = {
+        'status': 'error', 'result': 'Saving graph data has been failed'}
     print response_data
     if request.method == 'POST':
         print "is post"
@@ -209,7 +197,8 @@ def save_graph_data(request):
         data = GraphData(graph=graph, series_name=request.POST.get("series_name"),
                          series_data=request.POST.get("series_data"))
         data.save()
-        response_data = {'status': 'success', 'result': 'Graph data has been saved.'}
+        response_data = {
+            'status': 'success', 'result': 'Graph data has been saved.'}
 
     return HttpResponse(
         json.dumps(response_data),

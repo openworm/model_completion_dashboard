@@ -4,17 +4,17 @@ from setuptools import setup
 
 setup(
     # GETTING-STARTED: set your app name:
-    name='YourAppName',
+    name='pyopenworm',
     # GETTING-STARTED: set your app name:
     version='1.0',
     # GETTING-STARTED: set your app description:
-    description='OpenShift App',
+    description='PyOpenWorm App',
     # GETTING-STARTED: set author name (your name):
-    author='Your Name',
+    author='OpenWorm',
     # GETTING-STARTED: set author name (your name):
     author_email='example@example.com',
     # GETTING-STARTED: set author name (your name):
-    url='http://www.python.org/sigs/distutils-sig/',
+    url='https://github.com/openworm/PyOpenWorm',
     # GETTING-STARTED: define required django version:
     install_requires=['Django<=1.8'],
 )
