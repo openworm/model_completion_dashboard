@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import json
 
@@ -25,14 +25,22 @@ def Network(request):
     # Extract the network object from the worm object.
     net = worm.neuron_network()
 
-    # Make a list of some arbitrary neuron names.
-    some_neuron_names = ["ADAL", "AIBL", "I1R", "PVCR"]
+    neurons = net.neurons()
 
-    # Go through our list and get the neuron object associated with each name.
-    # Store these in another list.
-    some_neurons = [P.Neuron(name) for name in some_neuron_names]
+    '''
+    neuron_dict = {}
+    for neuron in neurons:
+        neuron_dict[net.aneuron(neuron)] = {
+            "SYN degree": net.aneuron(neuron).Syn_degree(),
+            "GJ degree": net.aneuron(neuron).GJ_degree(),
+            "blast": net.aneuron(neuron).blast(),
+            "incidents": net.aneuron(neuron).get_incidents(),
+            "daughter of": net.aneuron(neuron).daughterOf(),
+            "parent of": net.aneuron(neuron).parentOf()}
+    '''
 
-    return some_neurons
+    return render_to_response('pyopenworm/network.html',
+                              {'neurons': json.dumps(list(neurons))})
 
 
 '''
