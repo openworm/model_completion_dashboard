@@ -10,15 +10,16 @@ from models import *
 import PyOpenWorm as P
 import pyopenworm.models as C
 
+P.connect()
 
 # from formtools.wizard.views import SessionWizardView
+
+
 def index(request):
     return render(request, 'pyopenworm/index.html')
 
 
 def Network(request):
-    P.connect()
-
     # Get the worm object.
     worm = P.Worm()
 
