@@ -14,9 +14,14 @@
 </div>
 
 <script type="text/javascript">
-    data_from_django = {{ neurons|safe }};
+    neurons = {{ neurons|safe }};
 </script>
 
 <script src="{% static 'jsfiddle.js' %}"></script>
+
+<script type="text/javascript">
+    var container = document.getElementById("container");
+    container.appendChild(grid(neurons, 5, 10, 200, ["red", "white"]));
+</script>
 
 {% endblock %}

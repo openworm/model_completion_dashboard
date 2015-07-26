@@ -7,15 +7,7 @@
 
 {% endblock %}
 
-<script src="{% static 'jsfiddle.js' %}"></script>
 
-<script type="text/javascript">
-    neurons = {{ my_data|safe }};
-    
-    var container = document.getElementById("container");
-    
-    container.appendChild(grid(neurons, 5, 10, 200));
-</script>
 
 {% block content %}
 

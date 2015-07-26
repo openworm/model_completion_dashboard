@@ -9,7 +9,7 @@ var pixelsPerSide = 400;
 
 
 
-var grid = function(neurons, numberPerSide, size, pixelsPerSide) {
+var grid = function(neurons, numberPerSide, size, pixelsPerSide, colors) {
     var svg = document.createSvg("svg");
     svg.setAttribute("width", pixelsPerSide);
     svg.setAttribute("height", pixelsPerSide);
