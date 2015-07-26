@@ -22,7 +22,11 @@ from views import *
 urlpatterns = [
     url(r'^$', index, name='index'),
 
+<<<<<<< HEAD
     url(r'^network$', Network, name='network'),
+=======
+    url(r'^network$', Network.as_view(), name='network'),
+>>>>>>> c44268c80cdd5b51722e7099b83c35623a378a8c
 
 
     '''
