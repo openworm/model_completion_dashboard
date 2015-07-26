@@ -22,6 +22,9 @@ from views import *
 urlpatterns = [
     url(r'^$', index, name='index'),
 
+    url(r'^network$', Network, name='network'),
+
+
     '''
     url(r'^reference/create/$', login_required(ReferenceCreate.as_view()), name='reference-create'),
     url(r'^reference$', login_required(ReferenceList.as_view()), name='reference-index'),
