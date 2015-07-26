@@ -6,12 +6,34 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import json
 
 from form import *
-# from formtools.wizard.views import SessionWizardView
 from models import *
+import PyOpenWorm as P
+import pyopenworm.models as C
 
 
+# from formtools.wizard.views import SessionWizardView
 def index(request):
     return render(request, 'pyopenworm/index.html')
+
+
+def Network(request):
+    P.connect()
+
+    # Get the worm object.
+    worm = P.Worm()
+
+    # Extract the network object from the worm object.
+    net = worm.neuron_network()
+
+    # Make a list of some arbitrary neuron names.
+    some_neuron_names = ["ADAL", "AIBL", "I1R", "PVCR"]
+
+    # Go through our list and get the neuron object associated with each name.
+    # Store these in another list.
+    some_neurons = [P.Neuron(name) for name in some_neuron_names]
+
+    return some_neurons
+
 
 '''
 class ReferenceList(ListView):
