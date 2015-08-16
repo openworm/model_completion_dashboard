@@ -16,9 +16,19 @@ def index(request):
 
 
 def Neurons(request):
+    P.connect()
+
+    neurons = list(P.Neuron().load())
+
+    NEURON_DICT = {}
+    for neuron in neurons:
+        NEURON_DICT[str(neuron)] = {'name': str(neuron),
+                                    'completeness': '#2B7558'}
+
+    P.disconnect()
 
     return render_to_response('pyopenworm/neurons.html',
-                              {'neurons': settings.NEURON_DICT})
+                              {'neurons': NEURON_DICT})
 
 
 def Neuron(request, neuron_id):
@@ -44,8 +54,19 @@ def Neuron(request, neuron_id):
 
 
 def Muscles(request):
+    P.connect()
+
+    muscles = list(P.Muscle().load())
+
+    MUSCLE_DICT = {}
+    for muscle in muscles:
+        MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
+                                    'completeness': '#2B7558'}
+
+    P.disconnect()
+
     return render_to_response('pyopenworm/muscles.html',
-                              {'muscles': settings.MUSCLE_DICT})
+                              {'muscles': MUSCLE_DICT})
 
 
 def Muscle(request, muscle_id):
