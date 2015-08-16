@@ -151,9 +151,14 @@ print "Loading neuron information."
 
 NEURON_DICT = {}
 for neuron in neurons:
-    NEURON_DICT[str(neuron)] = {'name': str(neuron),
-                                'neuron': neuron,
-                                'completeness': '#2B7558'}
+    NEURON_DICT[str(neuron)] = {
+        'name': str(neuron),
+        'type': list(neuron.type.get()),
+        'receptor': list(neuron.receptor.get()),
+        'innexin': list(neuron.innexin.get()),
+        'neurotransmitter': list(neuron.neurotransmitter.get()),
+        'neuropeptide': list(neuron.neuropeptide.get()),
+        'completeness': '#2B7558'}
 
 print "Loaded neuron information."
 
@@ -162,7 +167,10 @@ print "Loading muscle information."
 MUSCLE_DICT = {}
 for muscle in muscles:
     MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
-                                'muscle': muscle,
+                                'neurons': list(muscle.neurons.get()),
+                                'receptors': list(muscle.receptors.get()),
                                 'completeness': '#2B7558'}
 
 print "Loaded muscle information."
+
+P.disconnect()

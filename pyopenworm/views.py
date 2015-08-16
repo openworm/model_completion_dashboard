@@ -18,20 +18,8 @@ def Neurons(request):
 
 
 def Neuron(request, neuron_id):
-
-    neuron = settings.NEURON_DICT[neuron_id]['neuron']
-
-    neuron_info = {
-        'type': list(neuron.type.get()),
-        'receptor': list(neuron.receptor.get()),
-        'innexin': list(neuron.innexin.get()),
-        'neurotransmitter': list(neuron.neurotransmitter.get()),
-        'neuropeptide': list(neuron.neuropeptide.get())
-    }
-
     return render_to_response('pyopenworm/neuron.html',
-                              {'neuron': settings.NEURON_DICT[neuron_id],
-                               'neuron_info': neuron_info})
+                              {'neuron': settings.NEURON_DICT[neuron_id]})
 
 
 def Muscles(request):
@@ -40,16 +28,8 @@ def Muscles(request):
 
 
 def Muscle(request, muscle_id):
-    muscle = settings.MUSCLE_DICT[muscle_id]['muscle']
-
-    muscle_info = {
-        'neurons': list(muscle.neurons.get()),
-        'receptors': list(muscle.receptors.get())
-    }
-
     return render_to_response('pyopenworm/muscle.html',
-                              {'muscle': settings.MUSCLE_DICT[muscle_id],
-                               'muscle_info': muscle_info})
+                              {'muscle': settings.MUSCLE_DICT[muscle_id]})
 
 '''
 class ReferenceList(ListView):

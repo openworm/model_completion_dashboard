@@ -36,7 +36,7 @@
         </td>
         <td>
             <ul>
-            {% for type in neuron_info.type %}
+            {% for type in neuron.type %}
                 <li>{{ type }}</li>
             {% endfor %}
             </ul>
@@ -48,7 +48,7 @@
         </td>
         <td>
             <ul>
-            {% for receptor in neuron_info.receptor %}
+            {% for receptor in neuron.receptor %}
                 <li>{{ receptor }}</li>
             {% endfor %}
             </ul>
@@ -60,7 +60,7 @@
         </td>
         <td>
             <ul>
-            {% for innexin in neuron_info.innexin %}
+            {% for innexin in neuron.innexin %}
                 <li>{{ innexin }}</li>
             {% endfor %}
             </ul>
@@ -72,7 +72,7 @@
         </td>
         <td>
             <ul>
-            {% for neurotransmitter in neuron_info.neurotransmitter %}
+            {% for neurotransmitter in neuron.neurotransmitter %}
                 <li>{{ neurotransmitter }}</li>
             {% endfor %}
             </ul>
@@ -84,7 +84,7 @@
         </td>
         <td>
             <ul>
-            {% for neuropeptide in neuron_info.neuropeptide %}
+            {% for neuropeptide in neuron.neuropeptide %}
                 <li>{{ neuropeptide }}</li>
             {% endfor %}
             </ul>
