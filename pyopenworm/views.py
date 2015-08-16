@@ -6,20 +6,41 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import json
 
+import PyOpenWorm as P
 
 # from formtools.wizard.views import SessionWizardView
+
+
 def index(request):
     return render(request, 'pyopenworm/index.html')
 
 
 def Neurons(request):
+
     return render_to_response('pyopenworm/neurons.html',
                               {'neurons': settings.NEURON_DICT})
 
 
 def Neuron(request, neuron_id):
+    P.connect()
+
+    neurons = list(P.Neuron(neuron_id).load())
+
+    neuron_dict = {}
+    for neuron in neurons:
+        neuron_dict[str(neuron)] = {
+            'name': str(neuron),
+            'type': list(neuron.type.get()),
+            'receptor': list(neuron.receptor.get()),
+            'innexin': list(neuron.innexin.get()),
+            'neurotransmitter': list(neuron.neurotransmitter.get()),
+            'neuropeptide': list(neuron.neuropeptide.get()),
+            'completeness': '#2B7558'}
+
+    P.disconnect()
+
     return render_to_response('pyopenworm/neuron.html',
-                              {'neuron': settings.NEURON_DICT[neuron_id]})
+                              {'neuron': neuron_dict[neuron_id]})
 
 
 def Muscles(request):
@@ -28,8 +49,23 @@ def Muscles(request):
 
 
 def Muscle(request, muscle_id):
+    P.connect()
+
+    muscles = list(P.Muscle(muscle_id).load())
+
+    muscle_dict = {}
+    for muscle in muscles:
+        '''
+            'neurons': list(muscle.neurons.get()),
+            'receptors': list(muscle.receptors.get()),
+        '''
+        muscle_dict[str(muscle)] = {'name': str(muscle),
+                                    'completeness': '#2B7558'}
+
+    P.disconnect()
+
     return render_to_response('pyopenworm/muscle.html',
-                              {'muscle': settings.MUSCLE_DICT[muscle_id]})
+                              {'muscle': muscle_dict[muscle_id]})
 
 '''
 class ReferenceList(ListView):
