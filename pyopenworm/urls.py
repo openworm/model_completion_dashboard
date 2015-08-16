@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from form import *
-from views import *
+from views import index, Neurons, Neuron, Muscles, Muscle
 
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    url(r'^network$', Network, name='network-index'),
+
+    url(r'^neurons$', Neurons, name='neurons-index'),
+    url(r'^neuron/(?P<neuron_id>\w+)$', Neuron, name='neuron-index'),
+
+    url(r'^muscles$', Muscles, name='muscles-index'),
+    url(r'^muscle/(?P<muscle_id>\w+)$', Muscle, name='muscle-index'),
 
 ]

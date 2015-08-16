@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
@@ -5,44 +6,50 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 import json
 
-from form import *
-from models import *
-import PyOpenWorm as P
-import pyopenworm.models as C
-
-P.connect()
 
 # from formtools.wizard.views import SessionWizardView
-
-
 def index(request):
     return render(request, 'pyopenworm/index.html')
 
 
-def Network(request):
-    # Get the worm object.
-    worm = P.Worm()
+def Neurons(request):
+    return render_to_response('pyopenworm/neurons.html',
+                              {'neurons': settings.NEURON_DICT})
 
-    # Extract the network object from the worm object.
-    net = worm.neuron_network()
 
-    neurons = net.neurons()
+def Neuron(request, neuron_id):
 
-    '''
-    neuron_dict = {}
-    for neuron in neurons:
-        neuron_dict[net.aneuron(neuron)] = {
-            "SYN degree": net.aneuron(neuron).Syn_degree(),
-            "GJ degree": net.aneuron(neuron).GJ_degree(),
-            "blast": net.aneuron(neuron).blast(),
-            "incidents": net.aneuron(neuron).get_incidents(),
-            "daughter of": net.aneuron(neuron).daughterOf(),
-            "parent of": net.aneuron(neuron).parentOf()}
-    '''
+    neuron = settings.NEURON_DICT[neuron_id]['neuron']
 
-    return render_to_response('pyopenworm/network.html',
-                              {'neurons': json.dumps(list(neurons))})
+    neuron_info = {
+        'type': list(neuron.type.get()),
+        'receptor': list(neuron.receptor.get()),
+        'innexin': list(neuron.innexin.get()),
+        'neurotransmitter': list(neuron.neurotransmitter.get()),
+        'neuropeptide': list(neuron.neuropeptide.get())
+    }
 
+    return render_to_response('pyopenworm/neuron.html',
+                              {'neuron': settings.NEURON_DICT[neuron_id],
+                               'neuron_info': neuron_info})
+
+
+def Muscles(request):
+    return render_to_response('pyopenworm/muscles.html',
+                              {'muscles': settings.MUSCLE_DICT})
+
+
+def Muscle(request, muscle_id):
+    muscle = settings.MUSCLE_DICT[muscle_id]['muscle']
+
+    muscle_info = {
+        'neurons': list(muscle.neurons.get()),
+        'receptors': list(muscle.receptors.get())
+    }
+
+    return render_to_response('pyopenworm/muscle.html',
+                              {'muscle': settings.MUSCLE_DICT[muscle_id],
+                               'muscle_info': muscle_info})
 
 '''
 class ReferenceList(ListView):

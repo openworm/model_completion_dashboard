@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import PyOpenWorm as P
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -134,3 +135,34 @@ LOGIN_REDIRECT_URL = '/'
 DEFAULT_INDEX_TABLESPACE = ''
 DEFAULT_TABLESPACE = ''
 ABSOLUTE_URL_OVERRIDES = {}
+
+P.connect()
+
+# Get the worm object.
+worm = P.Worm()
+
+# Extract the network object from the worm object.
+net = worm.neuron_network()
+
+neurons = list(P.Neuron().load())
+muscles = list(P.Muscle().load())
+
+print "Loading neuron information."
+
+NEURON_DICT = {}
+for neuron in neurons:
+    NEURON_DICT[str(neuron)] = {'name': str(neuron),
+                                'neuron': neuron,
+                                'completeness': '#2B7558'}
+
+print "Loaded neuron information."
+
+print "Loading muscle information."
+
+MUSCLE_DICT = {}
+for muscle in muscles:
+    MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
+                                'muscle': muscle,
+                                'completeness': '#2B7558'}
+
+print "Loaded muscle information."

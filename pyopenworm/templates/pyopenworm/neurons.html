@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block page_title %}{% trans 'Neurons' %}{% endblock %}
+{% block page_header %}{% trans 'Neurons' %}{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="{% url 'pyopenworm:index' %}">
+            <i class="fa fa-home"> </i>
+            {% trans 'Home' %}
+        </a>    
+    </li>
+    <li class="active">{% trans 'Neurons' %}</li>
+{% endblock %}
+
+{% block content %}
+<div id="container">
+    <table style="width:100%">
+    <tr>
+{% if neurons %}
+   There are {{ neurons|length }} neurons in pyopenworm:
+   {% for neuron, value in neurons.items %}
+        <td style='background-color: {{ value.completeness }}'>   
+            <a href="/pyopenworm/neuron/{{ value.name }}">
+                <div style="height:100%;width:100%">
+                  {{ value.name }}
+                </div>
+            </a>
+       </td>
+        {% if forloop.counter|divisibleby:10 %}
+    </tr>
+    <tr>
+        {% endif %}
+   {% endfor %}
+{% else %}
+   There are no neurons were found in the pyopenworm.
+{% endif %}
+    </tr>
+    </table>
+</div>
+
+{% endblock %}
