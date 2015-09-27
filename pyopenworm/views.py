@@ -19,10 +19,8 @@ def Neurons(request):
     P.connect()
 
     try:
-        neurons = list(P.Neuron().load())
-
         NEURON_DICT = {}
-        for neuron in neurons:
+        for neuron in P.Neuron().load():
             NEURON_DICT[str(neuron)] = {'name': str(neuron),
                                         'completeness': '#2B7558'}
     finally:
@@ -36,10 +34,8 @@ def Neuron(request, neuron_id):
     P.connect()
 
     try:
-        neurons = list(P.Neuron(neuron_id).load())
-
         neuron_dict = {}
-        for neuron in neurons:
+        for neuron in P.Neuron(neuron_id).load():
             neuron_dict[str(neuron)] = {
                 'name': str(neuron),
                 'type': list(neuron.type.get()),
@@ -59,10 +55,8 @@ def Muscles(request):
     P.connect()
 
     try:
-        muscles = list(P.Muscle().load())
-
         MUSCLE_DICT = {}
-        for muscle in muscles:
+        for muscle in P.Muscle().load():
             MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
                                         'completeness': '#2B7558'}
     finally:
@@ -76,10 +70,8 @@ def Muscle(request, muscle_id):
     P.connect()
 
     try:
-        muscles = list(P.Muscle(muscle_id).load())
-
         muscle_dict = {}
-        for muscle in muscles:
+        for muscle in P.Muscle(muscle_id).load():
             '''
                 'neurons': list(muscle.neurons.get()),
                 'receptors': list(muscle.receptors.get()),
@@ -97,10 +89,8 @@ def Channels(request):
     P.connect()
 
     try:
-        channels = list(P.Channel().load())
-
         CHANNEL_DICT = {}
-        for channel in channels:
+        for channel in P.Channel().load():
             CHANNEL_DICT[str(channel)] = {'name': str(channel),
                                           'completeness': '#2B7558'}
     finally:
@@ -114,14 +104,8 @@ def Channel(request, channel_id):
     P.connect()
 
     try:
-        channels = list(P.Channel().load())
-
         channel_dict = {}
-        for channel in channels:
-            '''
-                'neurons': list(muscle.neurons.get()),
-                'receptors': list(muscle.receptors.get()),
-            '''
+        for channel in P.Channel().load():
             channel_dict[str(channel)] = {'name': str(channel),
                                           'completeness': '#2B7558'}
     finally:
@@ -129,6 +113,56 @@ def Channel(request, channel_id):
 
     return render_to_response('pyopenworm/channel.html',
                               {'channel': channel_dict[channel_id]})
+
+
+def Evidences(request):
+    P.connect()
+
+    try:
+        EVIDENCE_DICT = {}
+        count = 0
+        for evidence in P.Evidence().load():
+            EVIDENCE_DICT[str(count)] = {
+                'doi': list(evidence.doi.get()),
+                'pmid': list(evidence.pmid.get()),
+                'wormbaseid': list(evidence.wbid.get()),
+                'author': list(evidence.author.get()),
+                'title': list(evidence.title.get()),
+                'year': list(evidence.year.get()),
+                'uri': list(evidence.uri.get()),
+                'completeness': '#2B7558'}
+
+            count += 1
+    finally:
+        P.disconnect()
+
+    return render_to_response('pyopenworm/evidences.html',
+                              {'evidences': EVIDENCE_DICT})
+
+
+def Evidence(request, evidence_id):
+    P.connect()
+
+    try:
+        EVIDENCE_DICT = {}
+        count = 0
+        for evidence in P.Evidence(evidence_id).load():
+            EVIDENCE_DICT[str(count)] = {
+                'doi': list(evidence.doi.get()),
+                'pmid': list(evidence.pmid.get()),
+                'wormbaseid': list(evidence.wbid.get()),
+                'author': list(evidence.author.get()),
+                'title': list(evidence.title.get()),
+                'year': list(evidence.year.get()),
+                'uri': list(evidence.uri.get()),
+                'completeness': '#2B7558'}
+
+            count += 1
+    finally:
+        P.disconnect()
+
+    return render_to_response('pyopenworm/evidence.html',
+                              {'evidence': EVIDENCE_DICT[evidence_id]})
 
 '''
 class ReferenceList(ListView):

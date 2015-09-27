@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block page_title %}{% trans 'Evidence' %}{% endblock %}
+{% block page_header %}{% trans 'Evidence' %}{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="{% url 'pyopenworm:index' %}">
+            <i class="fa fa-home"> </i>
+            {% trans 'Home' %}
+        </a>    
+    </li>
+    <li>
+        <a href="{% url 'pyopenworm:evidences-index' %}">
+            <i class="fa fa-home"> </i>
+            {% trans 'Evidences' %}
+        </a>    
+    </li>
+    <li class="active">{{ evidence.name }}</li>
+{% endblock %}
+
+
+{% block content %}
+<div id="container">
+    <table style="width:100%">
+    <tr style='background-color: {{ evidence.completeness }}'>
+    <td>
+        {{ evidence.name }}
+    </td>
+    </tr>
+    </table>
+    <table style="width:100%">
+    <tr>
+        <td>
+            Neurons: 
+        </td>
+        <td>
+            <ul>
+
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Receptors: 
+        </td>
+        <td>
+            <ul>
+
+            </ul>
+        </td>
+    </tr>
+    </table>
+        
+    
+</div>
+
+{% endblock %}

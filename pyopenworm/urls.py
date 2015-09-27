@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 
 from views import index, Neurons, Neuron, Muscles, Muscle, Channel, Channels
+from views import Evidence, Evidences
 
 
 urlpatterns = [
@@ -29,5 +30,8 @@ urlpatterns = [
 
     url(r'^channels$', Channels, name='channels-index'),
     url(r'^channel/(?P<channel_id>\w+)$', Channel, name='channel-index'),
+
+    url(r'^evidences$', Evidences, name='evidences-index'),
+    url(r'^evidence/(?P<evidence_id>\w+)$', Evidence, name='evidence-index'),
 
 ]
