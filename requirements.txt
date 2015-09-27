@@ -1,1 +1,2 @@
 django-formtools
+PyOpenWorm==0.5.3

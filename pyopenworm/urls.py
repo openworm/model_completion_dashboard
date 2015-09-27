@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from views import index, Neurons, Neuron, Muscles, Muscle
+from views import index, Neurons, Neuron, Muscles, Muscle, Channel, Channels
 
 
 urlpatterns = [
@@ -26,5 +26,8 @@ urlpatterns = [
 
     url(r'^muscles$', Muscles, name='muscles-index'),
     url(r'^muscle/(?P<muscle_id>\w+)$', Muscle, name='muscle-index'),
+
+    url(r'^channels$', Channels, name='channels-index'),
+    url(r'^channel/(?P<channel_id>\w+)$', Channel, name='channel-index'),
 
 ]

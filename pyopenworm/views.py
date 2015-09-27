@@ -18,14 +18,15 @@ def index(request):
 def Neurons(request):
     P.connect()
 
-    neurons = list(P.Neuron().load())
+    try:
+        neurons = list(P.Neuron().load())
 
-    NEURON_DICT = {}
-    for neuron in neurons:
-        NEURON_DICT[str(neuron)] = {'name': str(neuron),
-                                    'completeness': '#2B7558'}
-
-    P.disconnect()
+        NEURON_DICT = {}
+        for neuron in neurons:
+            NEURON_DICT[str(neuron)] = {'name': str(neuron),
+                                        'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
 
     return render_to_response('pyopenworm/neurons.html',
                               {'neurons': NEURON_DICT})
@@ -34,20 +35,21 @@ def Neurons(request):
 def Neuron(request, neuron_id):
     P.connect()
 
-    neurons = list(P.Neuron(neuron_id).load())
+    try:
+        neurons = list(P.Neuron(neuron_id).load())
 
-    neuron_dict = {}
-    for neuron in neurons:
-        neuron_dict[str(neuron)] = {
-            'name': str(neuron),
-            'type': list(neuron.type.get()),
-            'receptor': list(neuron.receptor.get()),
-            'innexin': list(neuron.innexin.get()),
-            'neurotransmitter': list(neuron.neurotransmitter.get()),
-            'neuropeptide': list(neuron.neuropeptide.get()),
-            'completeness': '#2B7558'}
-
-    P.disconnect()
+        neuron_dict = {}
+        for neuron in neurons:
+            neuron_dict[str(neuron)] = {
+                'name': str(neuron),
+                'type': list(neuron.type.get()),
+                'receptor': list(neuron.receptor.get()),
+                'innexin': list(neuron.innexin.get()),
+                'neurotransmitter': list(neuron.neurotransmitter.get()),
+                'neuropeptide': list(neuron.neuropeptide.get()),
+                'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
 
     return render_to_response('pyopenworm/neuron.html',
                               {'neuron': neuron_dict[neuron_id]})
@@ -56,14 +58,15 @@ def Neuron(request, neuron_id):
 def Muscles(request):
     P.connect()
 
-    muscles = list(P.Muscle().load())
+    try:
+        muscles = list(P.Muscle().load())
 
-    MUSCLE_DICT = {}
-    for muscle in muscles:
-        MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
-                                    'completeness': '#2B7558'}
-
-    P.disconnect()
+        MUSCLE_DICT = {}
+        for muscle in muscles:
+            MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
+                                        'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
 
     return render_to_response('pyopenworm/muscles.html',
                               {'muscles': MUSCLE_DICT})
@@ -72,21 +75,60 @@ def Muscles(request):
 def Muscle(request, muscle_id):
     P.connect()
 
-    muscles = list(P.Muscle(muscle_id).load())
+    try:
+        muscles = list(P.Muscle(muscle_id).load())
 
-    muscle_dict = {}
-    for muscle in muscles:
-        '''
-            'neurons': list(muscle.neurons.get()),
-            'receptors': list(muscle.receptors.get()),
-        '''
-        muscle_dict[str(muscle)] = {'name': str(muscle),
-                                    'completeness': '#2B7558'}
-
-    P.disconnect()
+        muscle_dict = {}
+        for muscle in muscles:
+            '''
+                'neurons': list(muscle.neurons.get()),
+                'receptors': list(muscle.receptors.get()),
+            '''
+            muscle_dict[str(muscle)] = {'name': str(muscle),
+                                        'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
 
     return render_to_response('pyopenworm/muscle.html',
                               {'muscle': muscle_dict[muscle_id]})
+
+
+def Channels(request):
+    P.connect()
+
+    try:
+        channels = list(P.Channel().load())
+
+        CHANNEL_DICT = {}
+        for channel in channels:
+            CHANNEL_DICT[str(channel)] = {'name': str(channel),
+                                          'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
+
+    return render_to_response('pyopenworm/channels.html',
+                              {'channels': CHANNEL_DICT})
+
+
+def Channel(request, channel_id):
+    P.connect()
+
+    try:
+        channels = list(P.Channel().load())
+
+        channel_dict = {}
+        for channel in channels:
+            '''
+                'neurons': list(muscle.neurons.get()),
+                'receptors': list(muscle.receptors.get()),
+            '''
+            channel_dict[str(channel)] = {'name': str(channel),
+                                          'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
+
+    return render_to_response('pyopenworm/channel.html',
+                              {'channel': channel_dict[channel_id]})
 
 '''
 class ReferenceList(ListView):

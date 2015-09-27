@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% block page_title %}{% trans 'Channels' %}{% endblock %}
+{% block page_header %}{% trans 'Channels' %}{% endblock %}
+{% block breadcrumb %}
+    <li>
+        <a href="{% url 'pyopenworm:index' %}">
+            <i class="fa fa-home"> </i>
+            {% trans 'Home' %}
+        </a>    
+    </li>
+    <li class="active">{% trans 'Channels' %}</li>
+{% endblock %}
+
+{% block content %}
+<div id="container">
+    <table style="width:100%">
+    <tr>
+{% if channels %}
+   There are {{ channels|length }} channels in pyopenworm:
+   {% for neuron, value in channels.items %}
+        <td style='background-color: {{ value.completeness }}'>   
+            <a href="/pyopenworm/channel/{{ value.name }}">
+                <div style="height:100%;width:100%">
+                  {{ value.name }}
+                </div>
+            </a>
+        </td>
+        {% if forloop.counter|divisibleby:10 %}
+            </tr><tr>
+        {% endif %}
+   {% endfor %}
+{% else %}
+   There are no channels were found in the pyopenworm.
+{% endif %}
+    </tr>
+    </table>
+</div>
+
+{% endblock %}

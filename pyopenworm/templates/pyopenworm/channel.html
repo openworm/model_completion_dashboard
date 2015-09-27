@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
-{% block page_title %}{% trans 'Muscle' %}{% endblock %}
-{% block page_header %}{% trans 'Muscle' %}{% endblock %}
+{% block page_title %}{% trans 'Channel' %}{% endblock %}
+{% block page_header %}{% trans 'Channel' %}{% endblock %}
 {% block breadcrumb %}
     <li>
         <a href="{% url 'pyopenworm:index' %}">
@@ -11,21 +11,21 @@
         </a>    
     </li>
     <li>
-        <a href="{% url 'pyopenworm:muscles-index' %}">
+        <a href="{% url 'pyopenworm:channels-index' %}">
             <i class="fa fa-home"> </i>
-            {% trans 'Muscles' %}
+            {% trans 'Channels' %}
         </a>    
     </li>
-    <li class="active">{{ muscle.name }}</li>
+    <li class="active">{{ channel.name }}</li>
 {% endblock %}
 
 
 {% block content %}
 <div id="container">
     <table style="width:100%">
-    <tr style='background-color: {{ muscle.completeness }}'>
+    <tr style='background-color: {{ channel.completeness }}'>
     <td>
-        {{ muscle.name }}
+        {{ channel.name }}
     </td>
     </tr>
     </table>
@@ -36,9 +36,7 @@
         </td>
         <td>
             <ul>
-            {% for neurons in muscle.neurons %}
-                <li>{{ neurons }}</li>
-            {% endfor %}
+
             </ul>
         </td>
     </tr>
@@ -48,9 +46,7 @@
         </td>
         <td>
             <ul>
-            {% for receptors in muscle.receptors %}
-                <li>{{ receptors }}</li>
-            {% endfor %}
+
             </ul>
         </td>
     </tr>
