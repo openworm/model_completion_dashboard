@@ -8,7 +8,7 @@
         <a href="{% url 'pyopenworm:index' %}">
             <i class="fa fa-home"> </i>
             {% trans 'Home' %}
-        </a>    
+        </a>
     </li>
     <li class="active">{% trans 'Evidences' %}</li>
 {% endblock %}
@@ -20,8 +20,8 @@
 {% if evidences %}
    There are {{ evidences|length }} pieces of evidence in pyopenworm:
    {% for neuron, value in evidences.items %}
-        <td style='background-color: {{ value.completeness }}'>   
-            <a href="/pyopenworm/channel/{{ value.wormbaseid }}">
+        <td style='background-color: {{ value.completeness }}'>
+            <a href="/pyopenworm/evidence/{{ value.index }}">
                 <div style="height:100%;width:100%">
                   {{ value.title }}
                 </div>

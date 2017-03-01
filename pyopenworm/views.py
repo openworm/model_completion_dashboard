@@ -123,6 +123,7 @@ def Evidences(request):
         count = 0
         for evidence in P.Evidence().load():
             EVIDENCE_DICT[str(count)] = {
+                'index': count,
                 'doi': list(evidence.doi.get()),
                 'pmid': list(evidence.pmid.get()),
                 'wormbaseid': list(evidence.wbid.get()),
@@ -146,7 +147,7 @@ def Evidence(request, evidence_id):
     try:
         EVIDENCE_DICT = {}
         count = 0
-        for evidence in P.Evidence(evidence_id).load():
+        for evidence in P.Evidence().load():
             EVIDENCE_DICT[str(count)] = {
                 'doi': list(evidence.doi.get()),
                 'pmid': list(evidence.pmid.get()),
@@ -160,6 +161,7 @@ def Evidence(request, evidence_id):
             count += 1
     finally:
         P.disconnect()
+
 
     return render_to_response('pyopenworm/evidence.html',
                               {'evidence': EVIDENCE_DICT[evidence_id]})
