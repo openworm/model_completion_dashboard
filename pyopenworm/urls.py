@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from views import index, Neurons, Neuron, Muscles, Muscle, Channel, Channels
+from views import index, Landing, Neurons, Neuron, Muscles, Muscle, Channel, Channels
 from views import Evidence, Evidences
 
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-
+    url(r'^landing$', Landing, name='landing'),
     url(r'^neurons$', Neurons, name='neurons-index'),
     url(r'^neuron/(?P<neuron_id>\w+)$', Neuron, name='neuron-index'),
 

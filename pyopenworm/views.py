@@ -15,6 +15,20 @@ def index(request):
     return render(request, 'pyopenworm/index.html')
 
 
+def Landing(request):
+    P.connect()
+    try:
+        NEURON_DICT = {}
+        for neuron in P.Neuron().load():
+            NEURON_DICT[str(neuron)] = {'name': str(neuron),
+                                        'completeness': '#2B7558'}
+    finally:
+        P.disconnect()
+
+    return render_to_response('pyopenworm/landing.html',
+                              {'neurons': NEURON_DICT})
+
+
 def Neurons(request):
     P.connect()
 
@@ -162,9 +176,9 @@ def Evidence(request, evidence_id):
     finally:
         P.disconnect()
 
-
     return render_to_response('pyopenworm/evidence.html',
                               {'evidence': EVIDENCE_DICT[evidence_id]})
+
 
 '''
 class ReferenceList(ListView):
