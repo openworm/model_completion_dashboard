@@ -22,7 +22,7 @@
                             <tr >
                               <td colspan="2" rowspan="3" style="background-color:red">&nbsp;</td>
                               {% for neuron, value in neurons.items %}
-                                <td colspan="1" style="background-color:{{ value.completeness }}">&nbsp;</td>
+                                <td colspan="1"  data-toggle="tooltip" data-placement="auto" title="{{ value.name }}" data-container="body" style="background-color:{{ value.completeness }}">&nbsp;</td>
                                 {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12  %}
                                 </tr>
                                 <tr>
@@ -41,4 +41,9 @@
       </div>
     </div>
 
+    <script language="javascript">
+    $( document ).ready(function( $ ) {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
 {% endblock %}
