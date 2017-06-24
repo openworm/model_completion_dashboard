@@ -1,0 +1,2 @@
+channel_id,channel_species,channel_conductance,gate_type,gate_id
+ChannelWorm_EGL36_35_3,K,10pS,gate_hh_tau_infs,vda
