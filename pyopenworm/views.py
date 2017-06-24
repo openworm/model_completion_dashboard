@@ -4,9 +4,13 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect, render_to_response
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from random import randint
 import json
+from django.http import JsonResponse
 
 import PyOpenWorm as P
+
+
 
 # from formtools.wizard.views import SessionWizardView
 
@@ -15,18 +19,91 @@ def index(request):
     return render(request, 'pyopenworm/index.html')
 
 
+def getCellChannel(request):
+    ROWS=20
+    CHANNEL_DICT = {}
+    Channels =[
+    "Muscle(Muscle:VM1AL)","Muscle(Muscle:DL21)","Muscle(Muscle:PM1R)","Muscle(Muscle:VM1PR)","Muscle(Muscle:DL20)","Muscle(Muscle:DR21)","Muscle(Muscle:VM1PL)",
+"Muscle(Muscle:VR8)","Muscle(Muscle:VR4)","Muscle(Muscle:PM1L)","Muscle(Muscle:VR5)","Muscle(Muscle:VR6)","Muscle(Muscle:VR7)","Muscle(Muscle:VR1)",
+"Muscle(Muscle:VR2)","Muscle(Muscle:VR3)","Muscle(Muscle:PM6VR)","Muscle(Muscle:DL4)","Muscle(Muscle:DL5)","Muscle(Muscle:DL6)","Muscle(Muscle:DL7)",
+"Muscle(Muscle:DL1)","Muscle(Muscle:DL2)","Muscle(Muscle:DL8)","Muscle(Muscle:DL3)","Muscle(Muscle:DL9)","Muscle(Muscle:PM5DL)","Muscle(Muscle:UM1AL)",
+"Muscle(Muscle:PM2R)","Muscle(Muscle:PM2L)","Muscle(Muscle:VL23)","Muscle(Muscle:VL22)","Muscle(Muscle:VL21)","Muscle(Muscle:VL20)",
+"Muscle(Muscle:PM5DR)","Muscle(Muscle:UM1AR)","Muscle(Muscle:DL10)","Muscle(Muscle:DL11)","Muscle(Muscle:DL12)","Muscle(Muscle:DL13)","Muscle(Muscle:DL14)"]
+    r=0
+    c=0
+    count=0
+    for channel in Channels:
+        CHANNEL_DICT[str(r)+","+str(c)] = {'name': str(channel),
+                            'completeness': randint(0, 9)}
+        r+=1
+        if r!=0 and r%ROWS==0:
+            r=0
+            c+=1
+    return JsonResponse(CHANNEL_DICT)
+
 def Landing(request):
     P.connect()
+    ROWS=20
     try:
         NEURON_DICT = {}
-        for neuron in P.Neuron().load():
-            NEURON_DICT[str(neuron)] = {'name': str(neuron),
+        Neurons = ["Neuron(Neuron:SABD)",
+"Neuron(Neuron:RMDDR)","Neuron(Neuron:CEPVL)","Neuron(Neuron:AIYR)","Neuron(Neuron:AIYL)","Neuron(Neuron:IL1DL)","Neuron(Neuron:RMDDL)","Neuron(Neuron:AVFR)","Neuron(Neuron:SIAVR)",
+"Neuron(Neuron:SIBVR)","Neuron(Neuron:IL1L)","Neuron(Neuron:SAADL)","Neuron(Neuron:VA10)","Neuron(Neuron:VA12)","Neuron(Neuron:VA11)","Neuron(Neuron:SAADR)","Neuron(Neuron:PLMR)",
+"Neuron(Neuron:IL1VR)","Neuron(Neuron:ADLL)","Neuron(Neuron:SIADL)","Neuron(Neuron:AIMR)","Neuron(Neuron:SIADR)","Neuron(Neuron:DA8)","Neuron(Neuron:DA9)","Neuron(Neuron:DA6)",
+"Neuron(Neuron:DA7)","Neuron(Neuron:DA4)","Neuron(Neuron:DA5)","Neuron(Neuron:DA2)","Neuron(Neuron:DA3)","Neuron(Neuron:DA1)","Neuron(Neuron:URAVR)","Neuron(Neuron:RIGR)","Neuron(Neuron:RMGR)",
+"Neuron(Neuron:RMGL)","Neuron(Neuron:AVJR)","Neuron(Neuron:VB11)","Neuron(Neuron:VB10)","Neuron(Neuron:RIGL)","Neuron(Neuron:URAVL)","Neuron(Neuron:ASIR)","Neuron(Neuron:AVDL)",
+"Neuron(Neuron:ASIL)","Neuron(Neuron:AVDR)","Neuron(Neuron:ADEL)","Neuron(Neuron:SMBDR)","Neuron(Neuron:SIBDL)","Neuron(Neuron:SMBDL)","Neuron(Neuron:SIBDR)","Neuron(Neuron:ADER)",
+"Neuron(Neuron:SAAVR)","Neuron(Neuron:I1L)","Neuron(Neuron:ADFR)","Neuron(Neuron:M2R)","Neuron(Neuron:SDQR)","Neuron(Neuron:AWCL)","Neuron(Neuron:VA8)","Neuron(Neuron:AWCR)","Neuron(Neuron:M4)",
+"Neuron(Neuron:DB2)","Neuron(Neuron:SDQL)","Neuron(Neuron:VA1)","Neuron(Neuron:VA2)","Neuron(Neuron:VA3)","Neuron(Neuron:SAAVL)","Neuron(Neuron:I1R)","Neuron(Neuron:VA7)","Neuron(Neuron:VA6)",
+"Neuron(Neuron:RIH)","Neuron(Neuron:IL2DR)","Neuron(Neuron:PVQL)","Neuron(Neuron:RID)","Neuron(Neuron:AIBL)","Neuron(Neuron:RIFR)","Neuron(Neuron:RMFL)","Neuron(Neuron:PDEL)",
+"Neuron(Neuron:RMFR)","Neuron(Neuron:PDER)","Neuron(Neuron:RIFL)","Neuron(Neuron:VB1)","Neuron(Neuron:IL2VL)","Neuron(Neuron:IL2VL)","Neuron(Neuron:PHAR)","Neuron(Neuron:VB3)",
+"Neuron(Neuron:SIBVL)","Neuron(Neuron:PHAL)","Neuron(Neuron:SIAVL)","Neuron(Neuron:IL2VR)","Neuron(Neuron:PVDL)","Neuron(Neuron:CEPDL)","Neuron(Neuron:SMBVL)",
+"Neuron(Neuron:AFDR)","Neuron(Neuron:RMDVL)","Neuron(Neuron:AFDL)","Neuron(Neuron:RMDVR)","Neuron(Neuron:AVFL)","Neuron(Neuron:SMBVR)","Neuron(Neuron:CEPDR)","Neuron(Neuron:PVDR)",
+"Neuron(Neuron:SMDDR)","Neuron(Neuron:VD9)","Neuron(Neuron:VD8)","Neuron(Neuron:VD3)","Neuron(Neuron:VD2)","Neuron(Neuron:VD1)","Neuron(Neuron:DVC)","Neuron(Neuron:VD6)","Neuron(Neuron:DVA)",
+"Neuron(Neuron:VD4)","Neuron(Neuron:URYDL)","Neuron(Neuron:RICR)","Neuron(Neuron:SMDDL)","Neuron(Neuron:PVR)","Neuron(Neuron:BDUL)","Neuron(Neuron:PVT)","Neuron(Neuron:NSMR)","Neuron(Neuron:HSNL)",
+"Neuron(Neuron:NSML)","Neuron(Neuron:CEPVR)","Neuron(Neuron:HSNR)","Neuron(Neuron:BDUR)","Neuron(Neuron:AVEL)","Neuron(Neuron:PVM)","Neuron(Neuron:URBL)","Neuron(Neuron:AVER)","Neuron(Neuron:FLPR)",
+"Neuron(Neuron:AINR)","Neuron(Neuron:URXR)","Neuron(Neuron:RIML)","Neuron(Neuron:AS11)","Neuron(Neuron:URBR)","Neuron(Neuron:RIMR)","Neuron(Neuron:PQR)","Neuron(Neuron:AINL)","Neuron(Neuron:PHBR)",
+"Neuron(Neuron:URXL)","Neuron(Neuron:ALML)","Neuron(Neuron:PHBL)","Neuron(Neuron:ALMR)","Neuron(Neuron:AS10)","Neuron(Neuron:LUAR)","Neuron(Neuron:AQR)","Neuron(Neuron:CANR)","Neuron(Neuron:VA9)",
+"Neuron(Neuron:ASGR)","Neuron(Neuron:IL1DR)","Neuron(Neuron:ASGL)","Neuron(Neuron:CANL)","Neuron(Neuron:LUAL)","Neuron(Neuron:VC3)","Neuron(Neuron:VC2)","Neuron(Neuron:VC1)","Neuron(Neuron:VC6)",
+"Neuron(Neuron:VC4)","Neuron(Neuron:VC5)","Neuron(Neuron:IL2R)","Neuron(Neuron:ASJR)","Neuron(Neuron:AWAR)","Neuron(Neuron:ASJL)","Neuron(Neuron:AWAL)",
+"Neuron(Neuron:IL2L)"]
+        r=0
+        c=0
+        count=0
+        for neuron in Neurons:
+            NEURON_DICT[(r,c)] = {'name': str(neuron),
+                                'completeness': randint(0, 9)}
+            r+=1
+            if r!=0 and r%ROWS==0:
+                r=0
+                c+=1
+
+        MUSCLE_DICT = {}
+        Muscles =[
+        "Muscle(Muscle:VM1AL)","Muscle(Muscle:DL21)","Muscle(Muscle:PM1R)","Muscle(Muscle:VM1PR)","Muscle(Muscle:DL20)","Muscle(Muscle:DR21)","Muscle(Muscle:VM1PL)",
+"Muscle(Muscle:VR8)","Muscle(Muscle:VR4)","Muscle(Muscle:PM1L)","Muscle(Muscle:VR5)","Muscle(Muscle:VR6)","Muscle(Muscle:VR7)","Muscle(Muscle:VR1)",
+"Muscle(Muscle:VR2)","Muscle(Muscle:VR3)","Muscle(Muscle:PM6VR)","Muscle(Muscle:DL4)","Muscle(Muscle:DL5)","Muscle(Muscle:DL6)","Muscle(Muscle:DL7)",
+"Muscle(Muscle:DL1)","Muscle(Muscle:DL2)","Muscle(Muscle:DL8)","Muscle(Muscle:DL3)","Muscle(Muscle:DL9)","Muscle(Muscle:PM5DL)","Muscle(Muscle:UM1AL)",
+"Muscle(Muscle:PM2R)","Muscle(Muscle:PM2L)","Muscle(Muscle:VL23)","Muscle(Muscle:VL22)","Muscle(Muscle:VL21)","Muscle(Muscle:VL20)",
+"Muscle(Muscle:PM5DR)","Muscle(Muscle:UM1AR)","Muscle(Muscle:DL10)","Muscle(Muscle:DL11)","Muscle(Muscle:DL12)","Muscle(Muscle:DL13)","Muscle(Muscle:DL14)",
+"Muscle(Muscle:DL15)","Muscle(Muscle:DL16)","Muscle(Muscle:DL17)","Muscle(Muscle:DL18)","Muscle(Muscle:PM2DR)","Muscle(Muscle:PM2DL)",
+"Muscle(Muscle:VR9)","Muscle(Muscle:GLRVL)","Muscle(Muscle:PM1DL)","Muscle(Muscle:PM3R)","Muscle(Muscle:DR6)","Muscle(Muscle:DR7)",
+"Muscle(Muscle:DR4)","Muscle(Muscle:PM3L)","Muscle(Muscle:DR2)","Muscle(Muscle:DR3)","Muscle(Muscle:DL19)","Muscle(Muscle:PM1DR)",
+"Muscle(Muscle:VR22)","Muscle(Muscle:DR8)","Muscle(Muscle:DR9)","Muscle(Muscle:VM1AR)","Muscle(Muscle:DR16)","Muscle(Muscle:PM3VL)",
+"Muscle(Muscle:DR18)","Muscle(Muscle:DR19)","Muscle(Muscle:PM4L)","Muscle(Muscle:DR12)","Muscle(Muscle:DR10)","Muscle(Muscle:DR13)",
+"Muscle(Muscle:PM2VL)","Muscle(Muscle:DR11)","Muscle(Muscle:PM1VR)","Muscle(Muscle:DR14)","Muscle(Muscle:DR17)","Muscle(Muscle:PM1VL)",
+"Muscle(Muscle:PM2VR)"]
+        for muscle in Muscles:
+            MUSCLE_DICT[str(muscle)] = {'name': str(muscle),
                                         'completeness': '#2B7558'}
     finally:
         P.disconnect()
 
     return render_to_response('pyopenworm/landing.html',
-                              {'neurons': NEURON_DICT})
+                              {'neurons': NEURON_DICT,
+                              'neuronRows': 5,
+                              'neuronCols': c,
+                              'muscles' : MUSCLE_DICT})
 
 
 def Neurons(request):

@@ -1,49 +1,232 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% load i18n %}
+{% load dict_filter %}
 {% block page_title %}{% trans 'Home' %}{% endblock %}
 {% block page_header %}{% trans 'Home' %}{% endblock %}
 {% block breadcrumb %}
 <li class="active">{% trans 'Home' %}</li>
 {% endblock %}
 
-
 {% block content %}
 <div id="page-wrapper">
-    <div class="row">
-        <div class="col-lg-6">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <i class="fa fa-tasks fa-fw"></i> Neurons
-                </div>
-                  <div class="panel-body">
-                    <div class="table-responsive" style="overflow:auto; max-height:400px;">
-                      <table width="100%" class="table table-striped table-bordered table-hover" >
-                            <tr >
-                              <td colspan="2" rowspan="3" style="background-color:red">&nbsp;</td>
-                              {% for neuron, value in neurons.items %}
-                                <td colspan="1"  data-toggle="tooltip" data-placement="auto" title="{{ value.name }}" data-container="body" style="background-color:{{ value.completeness }}">&nbsp;</td>
-                                {% if forloop.counter == 4 or forloop.counter == 8 or forloop.counter == 12  %}
-                                </tr>
-                                <tr>
-                                {% endif %}
-                                {% if forloop.counter > 12 and forloop.counter|divisibleby:6 %}
-                                </tr>
-                                <tr>
-                                {% endif %}
-                              {% endfor %}
-
-                    </table>
-                    </div>
-                  </div>
-            </div>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <div class="row" id="Neurons">
+        <div class="col-lg-12">
+          <div id="NeuronMatrix" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
         </div>
+      </div>
+
+    <div class="row" id="Channels" style="display:none;">
+      <div class="col-lg-12">
+      <div id="ChannelMatrix" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
       </div>
     </div>
 
     <script language="javascript">
     $( document ).ready(function( $ ) {
-    $('[data-toggle="tooltip"]').tooltip();
+
+  function convertChannelData(data)
+  {
+    console.log(" in convertChannelData");
+    converteddata = []
+    for(var ch in data)
+    {
+      var temp = ch.split(',');
+      console.log(temp);
+      converteddata.push([parseInt(temp[0]),parseInt(temp[1]),data[temp].completeness]);
+    }
+    return converteddata;
+  }
+
+
+
+  function convertData()
+      {
+        var rows = {{neuronRows}};
+        var cols = {{neuronCols}};
+        console.log(rows);
+        console.log(cols);
+        var i;var j;
+        var data=[];
+        var temp=[];
+      {% for key, value in neurons.items %}
+          temp=[{{key.0}},{{key.1}},{{value.completeness}}]
+          data.push(temp)
+          {% endfor %}
+
+        console.log(data)
+        return data;
+      }
+
+  function storeNames()
+  {
+    var names={};
+    {% for key, value in neurons.items %}
+     names[{{key.0}}]={};
+     {% endfor %}
+    {% for key, value in neurons.items %}
+        names[{{key.0}}][{{key.1}}]="{{value.name}}";
+        {% endfor %}
+        return names;
+  }
+
+  function storeChannelName(data)
+  {
+    var names={};
+
+  }
+
+var neuronNames = storeNames()
+
+var channelNames;
+
+
+channelChart = Highcharts.chart('ChannelMatrix', {
+
+    chart: {
+        type: 'heatmap',
+        marginTop: 40,
+        marginBottom: 80,
+        plotBorderWidth: 1
+    },
+
+    plotOptions: {
+            series: {
+                events: {
+                    click: function (event) {
+                      console.log("clicked");
+
+                    }
+                }
+            }
+        },
+
+
+    title: {
+        text: 'Channel Matrix for Cell'
+    },
+
+
+    colorAxis: {
+        min: 0,
+        minColor: '#000000',
+        maxColor: Highcharts.getOptions().colors[0]
+    },
+
+    legend: {
+        align: 'right',
+        layout: 'vertical',
+        margin: 0,
+        verticalAlign: 'top',
+        y: 25,
+        symbolHeight: 280
+    },
+
+    tooltip: {
+        formatter: function () {
+            var x=this.point.x;
+            var y=this.point.y;
+            return neuronNames[x][y];
+        }
+    },
+
+    series: [{
+        name: 'Sales per employee',
+        borderWidth: 0,
+        data:[],
+        dataLabels: {
+            enabled: false,
+            color: '#000000'
+        }
+    }]
+
+});
+
+
+
+// Neuron matrix
+
+Highcharts.chart('NeuronMatrix', {
+
+    chart: {
+        type: 'heatmap',
+        marginTop: 40,
+        marginBottom: 80,
+        plotBorderWidth: 1
+    },
+
+    plotOptions: {
+            series: {
+                events: {
+                    click: function (event) {
+
+
+                      $.ajax({
+      url: "{% url 'pyopenworm:getcellchannel' %}",
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        channeldata = convertChannelData(data);
+        console.log(channeldata);
+        channelNames = storeChannelName(data);
+        channelChart.series[0].setData(channeldata);
+        $("#Channels").slideDown();
+
+        // scrolling to the div element
+        $('html, body').animate({
+        scrollTop: $("#Channels").offset().top
+    }, 2000);
+      }
+    });
+
+                    }
+                }
+            }
+        },
+
+
+    title: {
+        text: 'Neurons'
+    },
+
+
+    colorAxis: {
+        min: 0,
+        minColor: '#000000',
+        maxColor: Highcharts.getOptions().colors[0]
+    },
+
+    legend: {
+        align: 'right',
+        layout: 'vertical',
+        margin: 0,
+        verticalAlign: 'top',
+        y: 25,
+        symbolHeight: 280
+    },
+
+    tooltip: {
+        formatter: function () {
+            var x=this.point.x;
+            var y=this.point.y;
+            return neuronNames[x][y];
+        }
+    },
+
+    series: [{
+        name: 'Sales per employee',
+        borderWidth: 0,
+        data:convertData(),
+        dataLabels: {
+            enabled: false,
+            color: '#000000'
+        }
+    }]
+
+});
   });
 </script>
 {% endblock %}
