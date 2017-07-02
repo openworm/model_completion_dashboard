@@ -27,6 +27,9 @@ urlpatterns = [
     url(r'^pyopenworm/',
         include('pyopenworm.urls',
                 namespace="pyopenworm"),),
+    url(r'^pyopenworm/api/',
+        include('pyopenworm.api.urls',
+                namespace="pyopenworm-api"),),
 
     url(r'^$', 'pyopenworm.views.index', name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
