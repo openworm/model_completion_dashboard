@@ -16,3 +16,6 @@ import PyOpenWorm as P
 
 def Landing(request):
     return render(request, 'pyopenworm/landing.html')
+
+def index(request):
+    return render(request, 'pyopenworm/landing.html')
