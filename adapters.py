@@ -11,7 +11,7 @@ else:
     from web_app import settings as defaults
     settings.configure(default_settings=defaults, DEBUG=True)
 
-import pyopenworm.models as C
+import modelcompletion.models as C
 import PyOpenWorm as P
 from django.forms.models import model_to_dict
 

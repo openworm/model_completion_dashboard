@@ -22,14 +22,14 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^auth/', include('django.contrib.auth.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^index$', 'pyopenworm.views.index'),
+    url(r'^index$', 'modelcompletion.views.index'),
 
     url(r'^pyopenworm/',
-        include('pyopenworm.urls',
-                namespace="pyopenworm"),),
+        include('modelcompletion.urls',
+                namespace="modelcompletion"),),
     url(r'^pyopenworm/api/',
-        include('pyopenworm.api.urls',
+        include('modelcompletion.api.urls',
                 namespace="pyopenworm-api"),),
 
-    url(r'^$', 'pyopenworm.views.index', name='home'),
+    url(r'^$', 'modelcompletion.views.index', name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
