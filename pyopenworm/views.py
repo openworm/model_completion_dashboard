@@ -8,7 +8,6 @@ from random import randint
 import json
 from django.http import JsonResponse
 
-import PyOpenWorm as P
 
 
 
