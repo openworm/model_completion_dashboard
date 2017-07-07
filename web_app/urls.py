@@ -29,7 +29,7 @@ urlpatterns = [
                 namespace="modelcompletion"),),
     url(r'^pyopenworm/api/',
         include('modelcompletion.api.urls',
-                namespace="pyopenworm-api"),),
+                namespace="modelcompletion-api"),),
 
     url(r'^$', 'modelcompletion.views.index', name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

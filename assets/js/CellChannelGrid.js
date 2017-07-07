@@ -6,7 +6,7 @@ import Heatmap from 'highcharts/modules/heatmap.js';
 
 
 
-class ChannelChart extends React.Component{
+class CellChannelGrid extends React.Component{
 
   formatDataChannel(data)
   {
@@ -16,7 +16,6 @@ class ChannelChart extends React.Component{
     var r=0;var c=0;
     for(var key in data)
     {
-      r+=1;
       if (r!=0 && r%ROWS==0)
       {
         r=0;
@@ -24,6 +23,7 @@ class ChannelChart extends React.Component{
       }
       console.log(data[key]);
       converteddata.push([parseInt(r),parseInt(c),parseInt(data[key].completeness)]);
+      r+=1;
     }
     return converteddata;
   }
@@ -39,7 +39,6 @@ class ChannelChart extends React.Component{
     }
     for(var key in data)
     {
-      r+=1;
       if (r!=0 && r%ROWS==0)
       {
         r=0;
@@ -47,6 +46,7 @@ class ChannelChart extends React.Component{
       }
       console.log(data[key]);
       names[r][c]=data[key].name;
+      r+=1;
     }
     return names;
   }
@@ -73,6 +73,9 @@ class ChannelChart extends React.Component{
                   );
                 this.chart.series[0].setData(this.state.channelData);
                 this.chart.update({
+                  title: {
+                      text: 'Channels'
+                  },
                     tooltip: {
                       formatter: function() {
                         var x=this.point.x;
@@ -123,4 +126,4 @@ class ChannelChart extends React.Component{
     }
 
 }
-export default ChannelChart;
+export default CellChannelGrid;

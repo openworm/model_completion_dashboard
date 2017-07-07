@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MatrixApp from './MatrixApp';
+import Matrix from './Matrix';
 
 class App extends React.Component {
   render() {
     return (
-        <h1>
-        <MatrixApp />
-        </h1>
+        <div>
+        <Matrix />
+        </div>
     );
   }
 }

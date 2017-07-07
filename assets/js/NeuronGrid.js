@@ -2,25 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Highcharts from 'highcharts';
 import Heatmap from 'highcharts/modules/heatmap.js';
-import ChannelChart from './ChannelChart';
 
-class Chart extends React.Component {
+
+class NeuronGrid extends React.Component {
 
   constructor(props) {
    super(props);
    this.state = {neuronsData:[],
-   tooltipNeuron:{},
-   currCell:""  };
+   tooltipNeuron:{}
+ };
  }
-
-  // getInitialState()
-  // {
-  //   return {
-  //     neuronsData:[],
-  //     tooltipNeuron:{},
-  //     currCell:""
-  //   };
-  // }
 
   formatDataNeuron(data)
   {
@@ -30,7 +21,7 @@ class Chart extends React.Component {
     var r=0;var c=0;
     for(var key in data)
     {
-      r+=1;
+
       if (r!=0 && r%ROWS==0)
       {
         r=0;
@@ -38,9 +29,11 @@ class Chart extends React.Component {
       }
       console.log(data[key]);
       converteddata.push([parseInt(r),parseInt(c),parseInt(data[key].completeness)]);
+      r+=1;
     }
     return converteddata;
   }
+
 
   formatToolTipNeuron(data)
   {
@@ -53,7 +46,6 @@ class Chart extends React.Component {
     }
     for(var key in data)
     {
-      r+=1;
       if (r!=0 && r%ROWS==0)
       {
         r=0;
@@ -61,6 +53,7 @@ class Chart extends React.Component {
       }
       console.log(data[key]);
       names[r][c]=data[key].name;
+      r+=1;
     }
     return names;
   }
@@ -80,12 +73,16 @@ class Chart extends React.Component {
                   tooltipNeuron: ttNdata
                 });
                 var self = this;
-                this.chart = new Highcharts[this.props.type || "Chart"](
-                      this.refs.chart,
-                      this.props.Neuronoptions
+                console.log(this.refs);
+                this.Nchart = new Highcharts[this.props.type || "Chart"](
+                      this.refs.neuronchart,
+                      this.props.options
                   );
-                this.chart.series[0].setData(this.state.neuronsData);
-                this.chart.update({
+                this.Nchart.series[0].setData(this.state.neuronsData);
+                this.Nchart.update({
+                  title: {
+                      text: 'Neurons'
+                  },
                     tooltip: {
                       formatter: function() {
                         var x=this.point.x;
@@ -98,8 +95,7 @@ class Chart extends React.Component {
                                 events: {
                                     click: function (event) {
                                       var name = ttNdata[event.point.x][event.point.y]
-                                      self.setState({currCell:name});
-                                      console.log(self.state.currCell);
+                                      self.props.updateCurrCell(name);
                                     }
                                 }
                             }
@@ -110,30 +106,24 @@ class Chart extends React.Component {
         });
     }
 
-
     componentDidMount() {
       Heatmap(Highcharts);
       this.loadNeuronsFromServer();
     }
 
     componentWillUnmount() {
-        this.chart.destroy();
+        this.Nchart.destroy();
+
     }
 
     render() {
-
-      let channelmatrix;
-      if (this.state.currCell)
-      {
-        channelmatrix= <ChannelChart currcell={this.state.currCell} Channeloptions={this.props.Channeloptions} />;
-      }
         return (
             <div>
-            <div ref="chart"/>
-            {channelmatrix}
+            <div ref="neuronchart"/>
+
             </div>
         )
     }
 }
 
-export default Chart;
+export default NeuronGrid;

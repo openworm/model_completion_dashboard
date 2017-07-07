@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import PyOpenWorm as P
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,6 +26,8 @@ SECRET_KEY = 'd0vy02-g#nq@lg!s%5v$w(jilj@af791#1-3k9y7ea3c)djj!w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+P.connect()
 
 ALLOWED_HOSTS = []
 
