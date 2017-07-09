@@ -31,7 +31,7 @@ class AllNeurons(APIView):
         Neurons = []
         try:
             for neuron in P.Neuron().load():
-                    Neurons.append(Neuron(name=str(neuron)))
+                    Neurons.append(Neuron(name=str(neuron.name())))
         finally:
             print "done"
         serializer = NeuronSerializer(Neurons, many=True)
@@ -44,7 +44,7 @@ class AllMuscles(APIView):
 
         Muscles = []
         for muscle in P.Muscle().load():
-            Muscles.append(Muscle(name=str(muscle)))
+            Muscles.append(Muscle(name=str(muscle.name())))
         print Muscles
         serializer = MuscleSerializer(Muscles, many=True)
         print serializer.data
@@ -53,7 +53,7 @@ class AllMuscles(APIView):
 class CellIonChannels(APIView):
 
     def get(self,request, format=None):
-        Channels = [Channel(name="Channel(Channel:SABD)"),Channel(name="Channel(Channel:RMDDR)"),Channel(name="Channel(Channel:CEPVL)")]
+        Channels = [Channel(name="SABD"),Channel(name="RMDDR"),Channel(name="CEPVL")]
         serializer_class = ChannelSerializer
         cellname = self.request.query_params.get('cellname', None)
         if cellname==None:
