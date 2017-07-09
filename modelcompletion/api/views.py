@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from random import randint
 import PyOpenWorm as P
+import operator
 
 from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer
 
@@ -34,6 +35,7 @@ class AllNeurons(APIView):
                     Neurons.append(Neuron(name=str(neuron.name())))
         finally:
             print "done"
+        Neurons.sort(key=operator.attrgetter('name'))
         serializer = NeuronSerializer(Neurons, many=True)
         print serializer.data
         return Response(serializer.data)
