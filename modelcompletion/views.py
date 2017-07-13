@@ -6,6 +6,8 @@ from django.shortcuts import render, get_object_or_404, redirect, render_to_resp
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from random import randint
 import json
+import os
+from django.conf import settings
 from django.http import JsonResponse
 
 

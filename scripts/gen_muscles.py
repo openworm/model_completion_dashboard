@@ -7,7 +7,7 @@ input_file = open("C. elegans Cell List - WormBase.csv")
 file_reader = csv.DictReader(input_file)
 
 def getbodywallmuscles(file_reader):
-    bwmuscle = open("bodywallmuscles.cvs",'w')
+    bwmuscle = open("bodywallmuscles.csv",'w')
     writer = csv.writer(bwmuscle, delimiter=',')
     writer.writerow(["Body wall muscles"]);
     for row in file_reader:
@@ -18,7 +18,7 @@ def getbodywallmuscles(file_reader):
 
 
 def getpharynxmuscles(file_reader):
-    phymuscle = open("pharynxmuscles.cvs",'w')
+    phymuscle = open("pharynxmuscles.csv",'w')
     writer = csv.writer(phymuscle, delimiter=',')
     writer.writerow(["Pharynx muscles"]);
     for row in file_reader:

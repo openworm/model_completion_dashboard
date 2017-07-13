@@ -64,11 +64,8 @@ class NeuronGrid extends React.Component {
             datatype: 'json',
             cache: false,
             success: function(data) {
-              console.log(data);
                 var ttNdata = this.formatToolTipNeuron(data);
-                console.log(ttNdata);
                 data = this.formatDataNeuron(data);
-                console.log(data);
                 this.setState({neuronsData: data,
                   tooltipNeuron: ttNdata
                 });
