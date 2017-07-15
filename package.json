@@ -24,12 +24,15 @@
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.4",
     "highcharts": "^5.0.12",
     "jquery": "^3.2.1",
     "preset": "^1.0.0",
     "react": "^15.6.1",
+    "react-autosuggest": "^9.3.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
+    "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
     "webpack-bundle-tracker": "^0.2.0"
   }

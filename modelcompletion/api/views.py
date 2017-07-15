@@ -1,4 +1,5 @@
 from django.http import Http404
+from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,6 +8,8 @@ import PyOpenWorm as P
 import csv
 import os
 import operator
+import json
+from django.http import HttpResponse
 from django.conf import settings
 
 from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer
@@ -131,3 +134,26 @@ class FindCell(APIView):
         serializer = ChannelSerializer(Channels, many=True)
         print serializer.data
         return Response(serializer.data)
+
+class SearchSuggestion(View):
+
+    Allcells=[]
+    def __init__(self):
+        self.Allcells = []
+        for neuron in P.Neuron().load():
+            self.Allcells.append(str(neuron.name()))
+        for muscle in P.Muscle().load():
+            self.Allcells.append(str(muscle.name()))
+
+    def get(self,request, format=None):
+
+        cellname = self.request.GET.get('term', '')
+        Suggestion = []
+        if cellname==None:
+            Suggestion = []
+        else:
+            Suggestion = filter(lambda k: cellname in k, self.Allcells)
+
+        data = json.dumps(Suggestion)
+        mimetype = 'application/json'
+        return HttpResponse(data, mimetype)

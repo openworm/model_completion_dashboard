@@ -4,6 +4,7 @@ import Highcharts from 'highcharts';
 import CellChannelGrid from './CellChannelGrid';
 import NeuronGrid from './NeuronGrid';
 import MuscleGrid from './MuscleGrid';
+import SearchBar from './SearchBar';
 
 class Grid extends React.Component {
 
@@ -30,6 +31,7 @@ render() {
   }
     return (
         <div>
+        <SearchBar />
         <NeuronGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         <MuscleGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         {channelmatrix}
