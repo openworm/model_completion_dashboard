@@ -110,6 +110,9 @@ STATIC_URL = '/static/'
 
 # Pycharm detected this
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
+
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates').replace('\\', '/'),
 )

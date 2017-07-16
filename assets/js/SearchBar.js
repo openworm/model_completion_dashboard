@@ -1,53 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Autosuggest from 'react-autosuggest';
-import styles from './search.css';
+import {Typeahead} from 'react-bootstrap-typeahead';
+
 
 class SearchBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      value: '',
-      suggestions: [],
+      multiple: false,
       allcells: []
     };
-  }
-
-  getSuggestions(value){
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-    return inputLength === 0 ? [] : this.state.allcells.filter(cell =>
-      cell.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-  }
-
-  getSuggestionValue(suggestion) { return suggestion.name; }
-  renderSuggestion(suggestion){
-
-    return (
-    <div>
-    <strong>{suggestion.name}</strong>
-    </div>
-  );
-}
-
-  onChange (event, { newValue }) {
-    this.setState({
-      value: newValue
-    });
-  }
-
-  onSuggestionsFetchRequested({ value }){
-    this.setState({
-      suggestions: this.getSuggestions(value)
-    });
-  }
-
-  onSuggestionsClearRequested(){
-    this.setState({
-      suggestions: []
-    });
   }
 
   loadCellNamesFromServer()
@@ -58,38 +21,38 @@ class SearchBar extends React.Component {
         datatype: 'json',
         cache: false,
         success: function(data) {
-          this.setState({allcells:data})
+          var cells = [];
+          console.log(data);
+          for (var key in data)
+          {
+            cells.push(data[key].name);
+          }
+          console.log(cells);
+          this.setState({allcells:cells})
         }.bind(this)
     });
 
   }
+
 
   componentDidMount() {
     this.loadCellNamesFromServer();
   }
 
   render() {
-    const { value, suggestions } = this.state;
-
-    const inputProps = {
-      placeholder: 'Enter a CellName',
-      value,
-      onChange: this.onChange.bind(this)
-    };
+    const {multiple} = this.state;
 
     return (
-      <div className={styles.app}>
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
-        getSuggestionValue={this.getSuggestionValue.bind(this)}
-        renderSuggestion={this.renderSuggestion.bind(this)}
-        inputProps={inputProps}
+      <div>
+      <Typeahead
+        labelKey="name"
+        multiple={multiple}
+        options={this.state.allcells}
+        placeholder="Enter a cell name ..."
       />
       </div>
     );
   }
 }
 
-export default SearchBar;
+export default SearchBar ;

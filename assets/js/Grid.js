@@ -6,6 +6,7 @@ import NeuronGrid from './NeuronGrid';
 import MuscleGrid from './MuscleGrid';
 import SearchBar from './SearchBar';
 
+
 class Grid extends React.Component {
 
 constructor(props) {
@@ -31,7 +32,7 @@ render() {
   }
     return (
         <div>
-        <SearchBar />
+        <Test2 />
         <NeuronGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         <MuscleGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         {channelmatrix}

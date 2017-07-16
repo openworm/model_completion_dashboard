@@ -27,13 +27,15 @@
     "css-loader": "^0.28.4",
     "highcharts": "^5.0.12",
     "jquery": "^3.2.1",
+    "node-sass": "^4.5.3",
     "preset": "^1.0.0",
     "react": "^15.6.1",
-    "react-autosuggest": "^9.3.1",
-    "react-bootstrap": "^0.31.0",
+    "react-bootstrap": "^0.30.0",
+    "react-bootstrap-typeahead": "^1.4.2",
     "react-dom": "^15.6.1",
+    "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "webpack": "^3.0.0",
+    "webpack": "^3.3.0",
     "webpack-bundle-tracker": "^0.2.0"
   }
 }

@@ -2,6 +2,7 @@ var path = require("path")
 // var webpack = require('webpack')
 var BundleTracker = require('webpack-bundle-tracker')
 
+
 // module.exports = {
 //   context: __dirname,
 //
@@ -48,6 +49,20 @@ module.exports = {
       }
     },
     {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader", // compiles Sass to CS
+                options: {
+                    includePaths: ["./node_modules/react-bootstrap-autosuggest/src"]
+                }
+            }]
+        },
+
+    {
       test: /\.css$/,
       loader: 'style-loader'
     }, {
@@ -60,6 +75,6 @@ module.exports = {
   }]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx','.css','.scss']
   }
 };

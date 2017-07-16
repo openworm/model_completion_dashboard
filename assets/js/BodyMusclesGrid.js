@@ -51,7 +51,7 @@ class BodyMusclesGrid extends React.Component {
         r=0;
         c+=1;
       }
-      console.log(data[key]);
+    //  console.log(data[key]);
       names[r][c]=data[key].name;
       r+=1;
     }
