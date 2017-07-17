@@ -32,7 +32,7 @@ render() {
   }
     return (
         <div>
-        <Test2 />
+        <SearchBar />
         <NeuronGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         <MuscleGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         {channelmatrix}
