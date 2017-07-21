@@ -256,6 +256,45 @@ class CellChannelGrid extends React.Component{
     </Rb.Table>
 </div>;
         }
+        else if (this.state.cellDetail.celltype=="muscle") {
+
+          celldata = <div>
+  <Rb.Table striped bordered condensed>
+    <tbody>
+    <tr>
+        <td>
+            Neurons:
+        </td>
+        <td>
+            <ul>
+            {
+              this.state.cellDetail.neurons.map(function(neuron){
+            return <li key={neuron}>{neuron}</li>;
+            })}
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Receptors:
+        </td>
+        <td>
+            <ul>
+            {
+              this.state.cellDetail.receptors.map(function(receptor){
+            return <li key={receptor}>{receptor}</li>;
+            })}
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</Rb.Table>
+          </div>;
+
+
+
+
+        }
 
         return (
             <div>
