@@ -8,6 +8,15 @@ import Heatmap from 'highcharts/modules/heatmap.js';
 
 class CellChannelGrid extends React.Component{
 
+  constructor(props) {
+     super(props);
+     this.state = {
+       channelData:[],
+       tooltipChannel:{},
+       currChannel:""
+     };
+   }
+
   formatDataChannel(data)
   {
     console.log(" in formatDataChannel");
@@ -50,6 +59,15 @@ class CellChannelGrid extends React.Component{
     }
     return names;
   }
+
+  scrollToChannelMatrix(){
+  const self = this;
+  window.requestAnimationFrame(function() {
+  const node = ReactDOM.findDOMNode(self.refs.chchart);
+  node.scrollIntoView({ behavior: "smooth" });
+  });
+  }
+
 
 
   loadCellChannelsFromServer(){
@@ -101,19 +119,15 @@ class CellChannelGrid extends React.Component{
     }
 
 
-    getInitialState()
-    {
-      return {
-        channelData:[],
-        tooltipChannel:{},
-        currChannel:""
-      };
-    }
 
     componentDidMount() {
       Heatmap(Highcharts);
       this.loadCellChannelsFromServer(this.props.currCell);
     }
+
+    componentDidUpdate(prevProps) {
+    this.scrollToChannelMatrix();
+  }
 
     componentWillUnmount() {
         this.chart.destroy();
@@ -121,8 +135,10 @@ class CellChannelGrid extends React.Component{
 
     render() {
         return (
+            <div>
             <div ref="chchart"/>
-        )
+            </div>
+        );
     }
 
 }
