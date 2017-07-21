@@ -28,7 +28,7 @@ render() {
   if (this.state.currCell)
   {
     console.log(this.state.currCell);
-    channelmatrix= <CellChannelGrid currcell={this.state.currCell} Channeloptions={this.props.HeatMapoptions} scrollTo={this.refs.end} />;
+    channelmatrix= <CellChannelGrid currcell={this.state.currCell} Channeloptions={this.props.HeatMapoptions} />;
   }
     return (
         <div>
@@ -50,9 +50,7 @@ render() {
         <MuscleGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
         </Rb.Row>
 
-        <Rb.Row>
         {channelmatrix}
-        </Rb.Row>
         </div>
     );
 }

@@ -23,6 +23,7 @@ class Neuron(object):
         self.completeness=randint(0,9)
 
 class NeuronDetail(object):
+    celltype=None
     name= None
     completeness= None
     receptors = None
@@ -31,6 +32,7 @@ class NeuronDetail(object):
     neurotransmitter = None
     neuropeptide = None
     def __init__(self, neuron):
+        self.celltype = "neuron"
         self.name = neuron.name()
         self.type = neuron.type()
         self.completeness=randint(0,9)
@@ -46,10 +48,12 @@ class Muscle(object):
 
 class MuscleDetail(object):
     name= None
+    celltype= None
     completeness= None
     neurons= None
     receptors = None
     def __init__(self, muscle):
+        self.celltype = "muscle"
         self.name = muscle.name()
         self.completeness=randint(0,9)
         self.neurons = sorted(muscle.neurons())

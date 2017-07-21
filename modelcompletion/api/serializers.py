@@ -15,6 +15,7 @@ class NeuronSerializer(serializers.Serializer):
 class NeuronDetailSerializer(serializers.Serializer):
 
     name=serializers.CharField(max_length=200)
+    celltype=serializers.CharField(max_length=200)
     completeness=serializers.IntegerField()
     receptors = StringListField()
     type = StringListField()
@@ -26,6 +27,7 @@ class NeuronDetailSerializer(serializers.Serializer):
 class MuscleDetailSerializer(serializers.Serializer):
 
     name=serializers.CharField(max_length=200)
+    celltype=serializers.CharField(max_length=200)
     completeness=serializers.IntegerField()
     neurons= StringListField()
     receptors = StringListField()
