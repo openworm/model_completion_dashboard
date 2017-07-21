@@ -12,19 +12,48 @@ import json
 from django.http import HttpResponse
 from django.conf import settings
 
-from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer
+from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer, NeuronDetailSerializer, MuscleDetailSerializer
 
 
 
 class Neuron(object):
+
     def __init__(self, name,completeness=None):
         self.name = name
         self.completeness=randint(0,9)
+
+class NeuronDetail(object):
+    name= None
+    completeness= None
+    receptors = None
+    type = None
+    innexin= None
+    neurotransmitter = None
+    neuropeptide = None
+    def __init__(self, neuron):
+        self.name = neuron.name()
+        self.type = neuron.type()
+        self.completeness=randint(0,9)
+        self.receptors = sorted(neuron.receptors())
+        self.innexin = sorted(neuron.innexin())
+        self.neurotransmitter = sorted(neuron.neurotransmitter())
+        self.neuropeptide = sorted(neuron.neuropeptide())
 
 class Muscle(object):
     def __init__(self, name,completeness=None):
         self.name = name
         self.completeness=randint(0,9)
+
+class MuscleDetail(object):
+    name= None
+    completeness= None
+    neurons= None
+    receptors = None
+    def __init__(self, muscle):
+        self.name = muscle.name()
+        self.completeness=randint(0,9)
+        self.neurons = sorted(muscle.neurons())
+        self.receptors = sorted(muscle.receptors())
 
 class Channel(object):
     def __init__(self, name,completeness=None):
@@ -127,11 +156,24 @@ class FindCell(APIView):
 
     def get(self,request, format=None):
 
-        serializer_class = ChannelSerializer
+        neurons=[]
+        muscles=[]
+        Channels = [Channel(name="SABD"),Channel(name="RMDDR"),Channel(name="CEPVL")]
+        for neuron in P.Neuron().load():
+            neurons.append(str(neuron.name()))
+        for muscle in P.Muscle().load():
+            muscles.append(str(muscle.name()))
         cellname = self.request.query_params.get('cellname', None)
         if cellname==None:
             Channels=[]
-        serializer = ChannelSerializer(Channels, many=True)
+        else:
+            if cellname in neurons:
+                net = P.Worm().get_neuron_network()
+                neuron = net.aneuron(cellname)
+                serializer = NeuronDetailSerializer(NeuronDetail(neuron))
+            elif cellname in muscles:
+                muscle = P.Muscle(cellname)
+                serializer = MuscleDetailSerializer(MuscleDetail(muscle))
         print serializer.data
         return Response(serializer.data)
 

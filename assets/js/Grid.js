@@ -16,7 +16,6 @@ constructor(props) {
    currCell:""  };
  }
 
-//   <NeuronGrid updateCurrCell={this.updateCurrCell.bind(this)} options={this.props.HeatMapoptions}/>
 
  updateCurrCell( cell)
  {
