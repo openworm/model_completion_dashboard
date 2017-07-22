@@ -4,12 +4,14 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 
 
 class SearchBar extends React.Component {
+
   constructor(props) {
     super(props);
 
     this.state = {
       multiple: false,
-      allcells: []
+      allcells: [],
+      inputText: ''
     };
   }
 
@@ -34,6 +36,29 @@ class SearchBar extends React.Component {
 
   }
 
+  handleKeyPress(target)
+  {
+    this.setState({inputText:target});
+  }
+
+  handleSelect(target)
+  {
+    this.setState({inputText:target});
+    let cellname;
+    cellname = String(target).toUpperCase();
+    this.props.updateCurrCell(cellname);
+  }
+
+  onKeyPressed(event){
+
+    let cellname;
+    if (event.key=='Enter')
+    {
+      cellname = this.state.inputText.toUpperCase();
+      this.props.updateCurrCell(cellname);
+    }
+  }
+
 
   componentDidMount() {
     this.loadCellNamesFromServer();
@@ -43,12 +68,14 @@ class SearchBar extends React.Component {
     const {multiple} = this.state;
 
     return (
-      <div>
+      <div onKeyDown={this.onKeyPressed.bind(this)}>
       <Typeahead
         labelKey="name"
         multiple={multiple}
         options={this.state.allcells}
         placeholder="Enter a cell name ..."
+        onChange={this.handleSelect.bind(this)}
+        onInputChange={this.handleKeyPress.bind(this)}
       />
       </div>
     );

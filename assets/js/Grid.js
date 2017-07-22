@@ -34,7 +34,7 @@ render() {
         <div>
         <Rb.Row>
         <Rb.Panel>
-        <SearchBar />
+        <SearchBar updateCurrCell={this.updateCurrCell.bind(this)} />
         </Rb.Panel>
         </Rb.Row>
 
