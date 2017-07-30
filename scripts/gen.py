@@ -1,5 +1,5 @@
 import sys
-from pyneuroml.pynml import run_lems_with_jneuroml, print_comment_v, read_neuroml2_file
+from pyneuroml.pynml import run_lems_with_jneuroml, print_comment_v, read_neuroml2_file, extract_annotations
 import csv
 
 # ofile  = open('ttest.csv', "wb")
@@ -37,11 +37,17 @@ def get_conductance_expression(channel):
             expr += '* %s<sup>%s</sup> '%(g.id, g.instances) if instances >1 else '* %s '%(g.id)
     return expr
 
+def get_annotations(channel_file):
+    print "here"
+    print channel_file
+    print extract_annotations(channel_file)
+
 def driver():
     channel_file = sys.argv[1]
     tname=channel_file.split('.')
     csv_filename=tname[0]
     print csv_filename
+    get_annotations(channel_file)
     chfile  = open(csv_filename+'.csv', "wb")
     writer = csv.writer(chfile)
     row=['channel_id','channel_species','channel_conductance','gate_type', 'gate_id']

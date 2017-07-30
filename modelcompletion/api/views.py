@@ -12,7 +12,7 @@ import json
 from django.http import HttpResponse
 from django.conf import settings
 
-from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer, NeuronDetailSerializer, MuscleDetailSerializer
+from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer, NeuronDetailSerializer, MuscleDetailSerializer,IonChannelSerializer,ChannelDetailSerializer
 
 
 
@@ -41,7 +41,30 @@ class NeuronDetail(object):
         self.neurotransmitter = sorted(neuron.neurotransmitter())
         self.neuropeptide = sorted(neuron.neuropeptide())
 
+class ChannelDetail(object):
+    name = None
+    description = None
+    gene_name = None
+    gene_WB_ID = None
+    gene_class = None
+    expression_pattern = None
+    def __init__(self, channel):
+        self.celltype = "ionchannel"
+        self.name = channel.name()
+        self.description = channel.description()
+        self.completeness=randint(0,9)
+        self.gene_name = channel.gene_name()
+        self.gene_WB_ID = channel.gene_WB_ID()
+        self.expression = channel.expression_pattern()
+
+
+
 class Muscle(object):
+    def __init__(self, name,completeness=None):
+        self.name = name
+        self.completeness=randint(0,9)
+
+class IonChannel(object):
     def __init__(self, name,completeness=None):
         self.name = name
         self.completeness=randint(0,9)
@@ -111,6 +134,18 @@ class BodyMuscles(APIView):
         serializer= MuscleSerializer(Bodymuscles, many=True)
         return Response(serializer.data)
 
+class AllIonChannels(APIView):
+
+    def get(self, request, format=None):
+
+        IonChannels = []
+        try:
+            for channel in P.Channel().load():
+                IonChannels.append(IonChannel(name=str(channel.name())))
+        finally:
+            print "done"
+        serializer = IonChannelSerializer(IonChannels, many=True)
+        return Response(serializer.data)
 
 
 class PharynxMuscles(APIView):
@@ -178,6 +213,23 @@ class FindCell(APIView):
             elif cellname in muscles:
                 muscle = P.Muscle(cellname)
                 serializer = MuscleDetailSerializer(MuscleDetail(muscle))
+        print serializer.data
+        return Response(serializer.data)
+
+class FindChannel(APIView):
+
+    def get(self,request, format=None):
+
+        channels=[]
+        for channel in P.Channel().load():
+            channels.append(str(channel.name()))
+        channelname = self.request.query_params.get('channelname', None)
+        if channelname==None:
+            Channels=[]
+        else:
+            if channelname in channels:
+                channel = P.Channel(channelname)
+                serializer = ChannelDetailSerializer(ChannelDetail(channel))
         print serializer.data
         return Response(serializer.data)
 

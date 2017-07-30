@@ -7,6 +7,11 @@ class CellSerializer(serializers.Serializer):
 
     name=serializers.CharField(max_length=200)
 
+class IonChannelSerializer(serializers.Serializer):
+
+    name=serializers.CharField(max_length=200)
+    completeness=serializers.IntegerField()
+
 class NeuronSerializer(serializers.Serializer):
 
     name=serializers.CharField(max_length=200)
@@ -23,6 +28,16 @@ class NeuronDetailSerializer(serializers.Serializer):
     neurotransmitter = StringListField()
     neuropeptide = StringListField()
 
+
+class ChannelDetailSerializer(serializers.Serializer):
+
+    name = serializers.CharField(max_length=200)
+    celltype=serializers.CharField(max_length=200)
+    description = serializers.CharField(max_length=10000)
+    gene_name = serializers.CharField(max_length=200)
+    gene_WB_ID = serializers.CharField(max_length=200)
+    gene_class = serializers.CharField(max_length=200)
+    expression_pattern = serializers.CharField(max_length=200)
 
 class MuscleDetailSerializer(serializers.Serializer):
 

@@ -10,12 +10,12 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             <!-- Optionally, you can add icons to the links -->
-
-                <i class='fa fa fa-flask'></i><span>{% trans 'Neurons' %}</span></a>
+            <li><a href="{% url 'modelcompletion:landing' %}">
+                <i class='fa fa fa-flask'></i><span>{% trans 'Home' %}</span></a>
             </li>
-
+            <li><a href="{% url 'modelcompletion:channels' %}">
                 <i class='fa fa fa-flask'></i><span>{% trans 'Channels' %}</span></a>
-            </li>
+              </li>
         </ul>
         <!-- /.sidebar-menu -->
     </section>
