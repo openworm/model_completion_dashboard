@@ -6,55 +6,90 @@ import ChannelGrid from './ChannelGrid';
 class ChannelMatrix extends React.Component {
     render() {
 
-    const HeatMapoptions = {
+      const HeatMapoptions = {
 
-          chart: {
-              type: 'heatmap',
-              marginTop: 40,
-              marginBottom: 80,
-              plotBorderWidth: 1
-          },
+            chart: {
+                type: 'heatmap',
+                marginTop: 40,
+                marginBottom: 80,
+                plotBorderWidth: 1
+            },
 
-          xAxis: {
-        visible: false
-          },
+            xAxis: {
+          visible: false
+            },
 
-          yAxis: {
-        visible: false
-    },
-
-
-          title: {
-              text: 'title'
-          },
+            yAxis: {
+          visible: false
+      },
 
 
-          colorAxis: {
-              min: 0,
-              minColor: '#000000',
-              maxColor: Highcharts.getOptions().colors[0]
-          },
+            title: {
+                text: 'title'
+            },
 
-          legend: {
-              align: 'right',
-              layout: 'vertical',
-              margin: 0,
-              verticalAlign: 'top',
-              y: 25,
-              symbolHeight: 280
-          },
+            colorAxis : {
+              dataClasses: [{
+                from: 0,
+                to: 1,
+                color: '#FF0000'
+            },{
+                from:1,
+                to:2,
+                color:'#FF8000'
+            },{
+                from:2,
+                to:3,
+                color:'#FFD700'
+            },{
+                from:3,
+                to: 4,
+                color:'#00CED1'
+            },{
+              from: 4,
+              color: '#00FF00'
+            }]
 
-          series: [{
-              name: 'name',
-              borderWidth: 0,
-              data:[],
-              dataLabels: {
-                  enabled: false,
-                  color: '#000000'
-              }
-          }]
+            },
 
-      };
+            legend: {
+             title: {
+                 text: 'Degree of completion'
+             },
+             align: 'right',
+             verticalAlign: 'top',
+             floating: false,
+             layout: 'vertical',
+             valueDecimals: 0,
+             backgroundColor: 'rgba(255,255,255,0.3)',
+             symbolRadius: 0,
+             symbolHeight: 14
+         },
+
+            // legend: {
+            //     align: 'right',
+            //     layout: 'vertical',
+            //     margin: 0,
+            //     verticalAlign: 'top',
+            //     y: 25,
+            //     symbolHeight: 280
+            // },
+
+            // legend:{
+            //   enabled: false
+            // },
+
+            series: [{
+                name: 'name',
+                borderWidth: 0,
+                data:[],
+                dataLabels: {
+                    enabled: false,
+                    color: '#000000'
+                }
+            }]
+
+        };
 
         return (
           <div>

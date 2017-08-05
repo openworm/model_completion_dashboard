@@ -20,7 +20,7 @@ class Neuron(object):
 
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
 
 class NeuronDetail(object):
     celltype=None
@@ -35,7 +35,7 @@ class NeuronDetail(object):
         self.celltype = "neuron"
         self.name = neuron.name()
         self.type = neuron.type()
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
         self.receptors = sorted(neuron.receptors())
         self.innexin = sorted(neuron.innexin())
         self.neurotransmitter = sorted(neuron.neurotransmitter())
@@ -52,7 +52,7 @@ class ChannelDetail(object):
         self.celltype = "ionchannel"
         self.name = channel.name()
         self.description = channel.description()
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
         self.gene_name = channel.gene_name()
         self.gene_WB_ID = channel.gene_WB_ID()
         self.expression = channel.expression_pattern()
@@ -62,12 +62,12 @@ class ChannelDetail(object):
 class Muscle(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
 
 class IonChannel(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
 
 class MuscleDetail(object):
     name= None
@@ -78,14 +78,14 @@ class MuscleDetail(object):
     def __init__(self, muscle):
         self.celltype = "muscle"
         self.name = muscle.name()
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
         self.neurons = sorted(muscle.neurons())
         self.receptors = sorted(muscle.receptors())
 
 class Channel(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,9)
+        self.completeness=randint(0,4)
 
 class Cell(object):
     def __init__(self, name):
