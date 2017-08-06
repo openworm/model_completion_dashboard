@@ -141,9 +141,15 @@ class IonChannelDetails extends React.Component{
         </td>
         <td>
             <ul>
-            {
-            <li>{this.state.channelDetail.celltype}</li>
+            {(() => {
+              if (this.state.channelDetail.celltype)
+              {
+             return <li>{this.state.channelDetail.celltype}</li>;
           }
+          else {
+            return <li>Data not available</li>;
+          }
+            })()}
             </ul>
         </td>
     </tr>
@@ -153,9 +159,15 @@ class IonChannelDetails extends React.Component{
         </td>
         <td>
             <ul>
-            {
-                <li>{this.state.channelDetail.description}</li>
-            }
+            {(() => {
+              if (this.state.channelDetail.description)
+              {
+                return <li>{this.state.channelDetail.description}</li>;
+              }
+              else {
+                return <li>Data not available </li>;
+              }
+              })()}
             </ul>
         </td>
     </tr>
@@ -165,9 +177,15 @@ class IonChannelDetails extends React.Component{
         </td>
         <td>
             <ul>
-            {
-            <li>{this.state.channelDetail.gene_name}</li>
-            }
+            {(() => {
+              if (this.state.channelDetail.gene_name)
+              {
+            return <li>{this.state.channelDetail.gene_name}</li>;
+          }
+          else {
+            return <li>Data not available </li>;
+          }
+          })()}
             </ul>
         </td>
     </tr>
@@ -177,9 +195,15 @@ class IonChannelDetails extends React.Component{
         </td>
         <td>
             <ul>
-            {
-           <li>{this.state.channelDetail.gene_class}</li>
-            }
+            {(() => {
+              if (this.state.channelDetail.gene_class)
+              {
+           return <li>{this.state.channelDetail.gene_class}</li>;
+         }
+         else {
+           return <li>Data not available </li>;
+         }
+         })()}
             </ul>
         </td>
     </tr>
@@ -189,9 +213,15 @@ class IonChannelDetails extends React.Component{
         </td>
         <td>
             <ul>
-            {
-           <li>{this.state.channelDetail.expression_pattern}</li>
-            }
+            {(() => {
+              if (this.state.channelDetail.expression_pattern)
+              {
+           return <li>{this.state.channelDetail.expression_pattern}</li>;
+         }
+         else {
+           return <li>Data not available </li>;
+         }
+         })()}
             </ul>
         </td>
     </tr>

@@ -181,10 +181,10 @@ class CellChannelGrid extends React.Component{
 
     render() {
 
-        let celldata
+        let celldata;
         if (this.state.cellDetail.celltype=="neuron")
         {
-          celldata= <div>
+          celldata = <div>
     <Rb.Table striped bordered condensed>
     <tbody>
     <tr>
@@ -193,10 +193,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.type.map(function(type){
+            {(() => {
+              if(this.state.cellDetail.type.length>0)
+              {
+              let store = this.state.cellDetail.type.map(function(type){
             return <li key={type}>{type}</li>;
-          })}
+          });
+          return store;
+        }
+          else {
+            return <li>Data not available</li>;
+          }
+        })()}
+
             </ul>
         </td>
     </tr>
@@ -206,10 +215,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
+              {(() => {
+              if (this.state.cellDetail.receptors.length>0)
             {
-              this.state.cellDetail.receptors.map(function(receptor){
+              let store;
+              store = this.state.cellDetail.receptors.map(function(receptor){
             return <li key={receptor}>{receptor}</li>;
-            })}
+          });
+            return store;
+          }
+            else {
+              <li>Data not available</li>
+            }
+            })()}
             </ul>
         </td>
     </tr>
@@ -219,10 +237,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.innexin.map(function(innexin){
+            {(() => {
+              if (this.state.cellDetail.innexin.length>0)
+              {
+                let store;
+              store = this.state.cellDetail.innexin.map(function(innexin){
             return <li key={innexin}>{innexin}</li>;
-            })}
+          });
+          return store;
+        }
+            else {
+             <li>Data not available</li>
+            }
+            })()}
             </ul>
         </td>
     </tr>
@@ -232,10 +259,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.neurotransmitter.map(function(neurotransmitter){
+            {(() => {
+              if (this.state.cellDetail.neurotransmitter.length>0)
+              {
+                let store;
+              store = this.state.cellDetail.neurotransmitter.map(function(neurotransmitter){
             return <li key={neurotransmitter}>{neurotransmitter}</li>;
-            })}
+          });
+          return store;
+        }
+            else {
+               return <li>Data not available</li>;
+            }
+              })()}
             </ul>
         </td>
     </tr>
@@ -245,10 +281,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.neuropeptide.map(function(neuropeptide){
+            {(() => {
+              if (this.state.cellDetail.neuropeptide.length>0)
+              {
+                let store;
+              store = this.state.cellDetail.neuropeptide.map(function(neuropeptide){
             return <li key={neuropeptide}>{neuropeptide}</li>;
-            })}
+          });
+          return store;
+          }
+              else {
+                return <li>Data not available</li>;
+              }
+              })()}
             </ul>
         </td>
     </tr>
@@ -267,10 +312,19 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.neurons.map(function(neuron){
+            {(() => {
+              if (this.state.cellDetail.neurons.length>0)
+              {
+                let store;
+              store=this.state.cellDetail.neurons.map(function(neuron){
             return <li key={neuron}>{neuron}</li>;
-            })}
+          });
+        return store;
+      }
+            else {
+               return <li>Data not available</li>;
+            }
+            })()}
             </ul>
         </td>
     </tr>
@@ -280,19 +334,25 @@ class CellChannelGrid extends React.Component{
         </td>
         <td>
             <ul>
-            {
-              this.state.cellDetail.receptors.map(function(receptor){
+            {(() => {
+              if (this.state.cellDetail.receptors.length>0)
+              {
+                let store;
+              store = this.state.cellDetail.receptors.map(function(receptor){
             return <li key={receptor}>{receptor}</li>;
-            })}
+          });
+          return store;
+        }
+            else {
+              return <li>Data not available</li>;
+            }
+            })()}
             </ul>
         </td>
     </tr>
     </tbody>
 </Rb.Table>
           </div>;
-
-
-
 
         }
 
