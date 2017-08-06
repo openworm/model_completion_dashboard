@@ -52,19 +52,23 @@ class ChannelMatrix extends React.Component {
 
             },
 
-            legend: {
-             title: {
-                 text: 'Degree of completion'
-             },
-             align: 'right',
-             verticalAlign: 'top',
-             floating: false,
-             layout: 'vertical',
-             valueDecimals: 0,
-             backgroundColor: 'rgba(255,255,255,0.3)',
-             symbolRadius: 0,
-             symbolHeight: 14
-         },
+        //     legend: {
+        //      title: {
+        //          text: 'Degree of completion'
+        //      },
+        //      align: 'center',
+        //      verticalAlign: 'bottom',
+        //      floating: false,
+        //      itemDistance: 0,
+        //      layout: 'horizontal',
+        //      valueDecimals: 0,
+        //      backgroundColor: 'rgba(255,255,255,0.3)',
+        //      symbolRadius: 0,
+        //  },
+
+        legend: {
+          enabled : false
+        },
 
             // legend: {
             //     align: 'right',
@@ -90,6 +94,7 @@ class ChannelMatrix extends React.Component {
             }]
 
         };
+
 
         return (
           <div>

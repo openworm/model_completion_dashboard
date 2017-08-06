@@ -353,24 +353,24 @@ class CellChannelGrid extends React.Component{
     </tbody>
 </Rb.Table>
           </div>;
-
+//style={{width: 250, height: 250}}
         }
 
         return (
             <div>
             <Rb.Panel>
             <Rb.Row>
-            <Rb.Col xs={8} md={8} xsOffset={2} mdOffset={2}>
-            <div ref="chchart"/>
+            <Rb.Col xs={4} md={4} xsOffset={4} mdOffset={4}>
+            <div ref="currcellchart"/>
             </Rb.Col>
             </Rb.Row>
 
 
             <Rb.Row>
-            <Rb.Col xs={4} md={4}>
-            <div style={{width: 250, height: 250}} ref="currcellchart"/>
+            <Rb.Col xs={5} md={5}>
+            <div style={{height: 250}} ref="chchart"/>
             </Rb.Col>
-            <Rb.Col xs={8} md={8}>
+            <Rb.Col xs={7} md={7}>
             {celldata}
             </Rb.Col>
             </Rb.Row>

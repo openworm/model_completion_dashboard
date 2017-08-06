@@ -117,7 +117,6 @@ class NeuronGrid extends React.Component {
         return (
             <div>
             <div ref="neuronchart"/>
-
             </div>
         )
     }
