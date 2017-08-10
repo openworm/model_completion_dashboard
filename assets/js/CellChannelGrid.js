@@ -87,6 +87,30 @@ class CellChannelGrid extends React.Component{
 
   }
 
+  updateCellDetailsFromServer(){
+
+    $.ajax({
+        url: "/pyopenworm/api/findcell?cellname="+this.props.currcell,
+        datatype: 'json',
+        cache: false,
+        success: function(data) {
+            console.log("printing");
+            console.log(data);
+            this.setState({cellDetail:data});
+            this.chart1.series[0].setData([[0,0,this.state.cellDetail.completeness]]);
+            let self=this;
+            this.chart1.update({
+              title: {
+                  text: ""+self.state.cellDetail.name
+              },
+              legend: {
+                enabled: false
+              },
+              });
+        }.bind(this)
+    });
+  }
+
   renderCurrCellChart()
   {
     this.chart1 = new Highcharts[this.props.type || "Chart"](
@@ -117,6 +141,7 @@ class CellChannelGrid extends React.Component{
             datatype: 'json',
             cache: false,
             success: function(data) {
+              console.log("in cell channel get data set");
               console.log(data);
                 var ttChdata = this.formatToolTipChannel(data);
                 console.log(ttChdata);
@@ -155,22 +180,75 @@ class CellChannelGrid extends React.Component{
                         }
                   });
 
+                  this.scrollToChannelMatrix();
+
             }.bind(this)
         });
     }
+
+
+    updateCellChannelsFromServer(){
+          $.ajax({
+              url: "/pyopenworm/api/getcellionchannels/?cellname="+this.props.currcell,
+              datatype: 'json',
+              cache: false,
+              success: function(data) {
+                console.log("in cell channel get data set");
+                console.log(data);
+                  var ttChdata = this.formatToolTipChannel(data);
+                  console.log(ttChdata);
+                  data = this.formatDataChannel(data);
+                  console.log(data);
+                  this.setState({channelData: data,
+                    tooltipChannel: ttChdata
+                  });
+                  var self = this;
+                  this.chart.series[0].setData(this.state.channelData);
+                  this.chart.update({
+                    title: {
+                        text: 'Channels'
+                    },
+                      tooltip: {
+                        formatter: function() {
+                          var x=this.point.x;
+                          var y=this.point.y;
+                          return ttChdata[x][y];
+                        }
+                      },
+                      plotOptions: {
+                              series: {
+                                  events: {
+                                      click: function (event) {
+                                        var name = ttChdata[event.point.x][event.point.y]
+                                        self.setState({currChannel:name});
+                                        console.log(self.state.currChannel);
+                                      }
+                                  }
+                              }
+                          }
+                    });
+
+                    this.scrollToChannelMatrix();
+
+              }.bind(this)
+          });
+      }
+
 
 
 
     componentDidMount() {
       Heatmap(Highcharts);
       this.loadCellChannelsFromServer();
+      this.loadCellDetailsFromServer();
     }
 
     componentDidUpdate(prevProps, prevState) {
     if (this.state.currCell!=this.props.currcell)
     {
-    this.loadCellDetailsFromServer();
-    this.scrollToChannelMatrix();
+    this.updateCellChannelsFromServer();
+    this.updateCellDetailsFromServer();
+  //  this.scrollToChannelMatrix();
     this.setState({currCell:this.props.currcell});
     }
   }

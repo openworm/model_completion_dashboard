@@ -181,11 +181,26 @@ class AllCells(APIView):
 class CellIonChannels(APIView):
 
     def get(self,request, format=None):
-        Channels = [Channel(name="SABD"),Channel(name="RMDDR"),Channel(name="CEPVL")]
+        print "in cell channel get data set view"
         serializer_class = ChannelSerializer
         cellname = self.request.query_params.get('cellname', None)
         if cellname==None:
             Channels=[]
+        else:
+            neurons=[]
+            muscles=[]
+            for n in P.Neuron().load():
+                neurons.append(n.name())
+            for c in P.Channel().load():
+                muscles.append(c.name())
+            if cellname in neurons:
+                Channels=[]
+                for ch in P.Neuron(name=str(cellname)).channel():
+                    Channels.append(Channel(name=ch.name()))
+            if cellname in muscles:
+                Channels=[]
+                for ch in P.Muscle(name=str(cellname)).channel():
+                    Channels.append(Channel(name=ch.name()))
         serializer = ChannelSerializer(Channels, many=True)
         print serializer.data
         return Response(serializer.data)
