@@ -191,8 +191,8 @@ class CellIonChannels(APIView):
             muscles=[]
             for n in P.Neuron().load():
                 neurons.append(n.name())
-            for c in P.Channel().load():
-                muscles.append(c.name())
+            for m in P.Muscle().load():
+                muscles.append(m.name())
             if cellname in neurons:
                 Channels=[]
                 for ch in P.Neuron(name=str(cellname)).channel():
