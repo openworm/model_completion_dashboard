@@ -303,7 +303,7 @@ class CellChannelGrid extends React.Component{
             return store;
           }
             else {
-              <li>Data not available</li>
+            return <li>Data not available</li>;
             }
             })()}
             </ul>
@@ -325,7 +325,7 @@ class CellChannelGrid extends React.Component{
           return store;
         }
             else {
-             <li>Data not available</li>
+            return <li>Data not available</li>;
             }
             })()}
             </ul>
