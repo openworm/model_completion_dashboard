@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Highcharts from 'highcharts';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import * as Rb from 'react-bootstrap';
+import ChannelCellChart from './ChannelCellChart';
 
 
 
@@ -16,7 +17,8 @@ class CellChannelGrid extends React.Component{
        tooltipChannel:{},
        currChannel:"",
        currCell:"",
-       cellDetail:{}
+       cellDetail:{},
+       availableChannel:false
      };
    }
 
@@ -66,7 +68,7 @@ class CellChannelGrid extends React.Component{
   scrollToChannelMatrix(){
   const self = this;
   window.requestAnimationFrame(function() {
-  const node = ReactDOM.findDOMNode(self.refs.chchart);
+  const node = ReactDOM.findDOMNode(self.refs.currcellchart);
   node.scrollIntoView({ behavior: "smooth" });
   });
   }
@@ -141,44 +143,48 @@ class CellChannelGrid extends React.Component{
             datatype: 'json',
             cache: false,
             success: function(data) {
-              console.log("in cell channel get data set");
-              console.log(data);
                 var ttChdata = this.formatToolTipChannel(data);
-                console.log(ttChdata);
                 data = this.formatDataChannel(data);
-                console.log(data);
+                if (data.length == 0)
+                {
+                  this.setState({availableChannel:false})
+                }
+                else {
+                  this.setState({availableChannel:true})
+                }
+                console.log(this.state.availableChannel);
                 this.setState({channelData: data,
                   tooltipChannel: ttChdata
                 });
-                var self = this;
-                this.chart = new Highcharts[this.props.type || "Chart"](
-                      this.refs.chchart,
-                      this.props.Channeloptions
-                  );
-                this.chart.series[0].setData(this.state.channelData);
-                this.chart.update({
-                  title: {
-                      text: 'Channels'
-                  },
-                    tooltip: {
-                      formatter: function() {
-                        var x=this.point.x;
-                        var y=this.point.y;
-                        return ttChdata[x][y];
-                      }
-                    },
-                    plotOptions: {
-                            series: {
-                                events: {
-                                    click: function (event) {
-                                      var name = ttChdata[event.point.x][event.point.y]
-                                      self.setState({currChannel:name});
-                                      console.log(self.state.currChannel);
-                                    }
-                                }
-                            }
-                        }
-                  });
+                // var self = this;
+                // this.chart = new Highcharts[this.props.type || "Chart"](
+                //       this.refs.chchart,
+                //       this.props.Channeloptions
+                //   );
+                // this.chart.series[0].setData(this.state.channelData);
+                // this.chart.update({
+                //   title: {
+                //       text: 'Channels'
+                //   },
+                //     tooltip: {
+                //       formatter: function() {
+                //         var x=this.point.x;
+                //         var y=this.point.y;
+                //         return ttChdata[x][y];
+                //       }
+                //     },
+                //     plotOptions: {
+                //             series: {
+                //                 events: {
+                //                     click: function (event) {
+                //                       var name = ttChdata[event.point.x][event.point.y]
+                //                       self.setState({currChannel:name});
+                //                       console.log(self.state.currChannel);
+                //                     }
+                //                 }
+                //             }
+                //         }
+                //   });
 
                   this.scrollToChannelMatrix();
 
@@ -194,39 +200,47 @@ class CellChannelGrid extends React.Component{
               cache: false,
               success: function(data) {
                 console.log("in cell channel get data set");
-                console.log(data);
                   var ttChdata = this.formatToolTipChannel(data);
-                  console.log(ttChdata);
                   data = this.formatDataChannel(data);
-                  console.log(data);
+
+                  console.log("length "+data.length)
+                  if (data.length == 0)
+                  {
+                    this.setState({availableChannel:false})
+                  }
+                  else {
+                    this.setState({availableChannel:true})
+                  }
+                  console.log(this.state.availableChannel);
+
                   this.setState({channelData: data,
                     tooltipChannel: ttChdata
                   });
-                  var self = this;
-                  this.chart.series[0].setData(this.state.channelData);
-                  this.chart.update({
-                    title: {
-                        text: 'Channels'
-                    },
-                      tooltip: {
-                        formatter: function() {
-                          var x=this.point.x;
-                          var y=this.point.y;
-                          return ttChdata[x][y];
-                        }
-                      },
-                      plotOptions: {
-                              series: {
-                                  events: {
-                                      click: function (event) {
-                                        var name = ttChdata[event.point.x][event.point.y]
-                                        self.setState({currChannel:name});
-                                        console.log(self.state.currChannel);
-                                      }
-                                  }
-                              }
-                          }
-                    });
+                  // var self = this;
+                  // this.chart.series[0].setData(this.state.channelData);
+                  // this.chart.update({
+                  //   title: {
+                  //       text: 'Channels'
+                  //   },
+                  //     tooltip: {
+                  //       formatter: function() {
+                  //         var x=this.point.x;
+                  //         var y=this.point.y;
+                  //         return ttChdata[x][y];
+                  //       }
+                  //     },
+                  //     plotOptions: {
+                  //             series: {
+                  //                 events: {
+                  //                     click: function (event) {
+                  //                       var name = ttChdata[event.point.x][event.point.y]
+                  //                       self.setState({currChannel:name});
+                  //                       console.log(self.state.currChannel);
+                  //                     }
+                  //                 }
+                  //             }
+                  //         }
+                  //   });
 
                     this.scrollToChannelMatrix();
 
@@ -443,10 +457,13 @@ class CellChannelGrid extends React.Component{
             </Rb.Col>
             </Rb.Row>
 
-
             <Rb.Row>
             <Rb.Col xs={5} md={5}>
-            <div style={{height: 250}} ref="chchart"/>
+            {
+              this.state.availableChannel
+              ? <ChannelCellChart channeldata={this.state.channelData} tooltipdata={this.state.tooltipChannel} chartoptions={this.props.Channeloptions}/>
+              : <div> No channels available </div>
+            }
             </Rb.Col>
             <Rb.Col xs={7} md={7}>
             {celldata}
