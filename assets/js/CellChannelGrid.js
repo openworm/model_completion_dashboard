@@ -4,6 +4,7 @@ import Highcharts from 'highcharts';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import * as Rb from 'react-bootstrap';
 import ChannelCellChart from './ChannelCellChart';
+import IonChannelDetails from './IonChannelDetails.js';
 
 
 
@@ -17,9 +18,16 @@ class CellChannelGrid extends React.Component{
        tooltipChannel:{},
        currChannel:"",
        currCell:"",
+       currChannel:"",
        cellDetail:{},
+       chdetail:false,
        availableChannel:false
      };
+   }
+
+   updatecurrChannel(channel)
+   {
+     this.setState({currChannel:channel,chdetail:true});
    }
 
   formatDataChannel(data)
@@ -448,6 +456,12 @@ class CellChannelGrid extends React.Component{
 //style={{width: 250, height: 250}}
         }
 
+        let channeldetailsmatrix;
+        if (this.state.chdetail)
+        {
+          channeldetailsmatrix= <IonChannelDetails currchannel={this.state.currChannel} options={this.props.Channeloptions} />;
+        }
+
         return (
             <div>
             <Rb.Panel>
@@ -461,7 +475,7 @@ class CellChannelGrid extends React.Component{
             <Rb.Col xs={5} md={5}>
             {
               this.state.availableChannel
-              ? <ChannelCellChart channeldata={this.state.channelData} tooltipdata={this.state.tooltipChannel} chartoptions={this.props.Channeloptions}/>
+              ? <ChannelCellChart channeldata={this.state.channelData} tooltipdata={this.state.tooltipChannel} chartoptions={this.props.Channeloptions} updatecurrChannel={this.updatecurrChannel.bind(this)}/>
               : <div> No channels available </div>
             }
             </Rb.Col>
@@ -470,6 +484,15 @@ class CellChannelGrid extends React.Component{
             </Rb.Col>
             </Rb.Row>
             </Rb.Panel>
+
+
+            <Rb.Row>
+            <Rb.Col xs={10} md={10} xsOffset={1} mdOffset={1}>
+            <Rb.Panel>
+            {channeldetailsmatrix}
+            </Rb.Panel>
+            </Rb.Col>
+            </Rb.Row>
             </div>
         );
     }

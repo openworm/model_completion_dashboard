@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Highcharts from 'highcharts';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import * as Rb from 'react-bootstrap';
+import IonChannelDetails from './IonChannelDetails.js';
 
 
 
@@ -25,6 +26,7 @@ class ChannelCellChart extends React.Component{
    {
      this.chart.series[0].setData(this.props.channeldata);
      var ttChdata= this.props.tooltipdata;
+     var self=this;
      this.chart.update({
        title: {
            text: 'Channels'
@@ -41,6 +43,7 @@ class ChannelCellChart extends React.Component{
                      events: {
                          click: function (event) {
                            var name = ttChdata[event.point.x][event.point.y]
+                           self.props.updatecurrChannel(name);
                          }
                      }
                  }
