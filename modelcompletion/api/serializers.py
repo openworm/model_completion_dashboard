@@ -32,6 +32,7 @@ class NeuronDetailSerializer(serializers.Serializer):
 class ChannelDetailSerializer(serializers.Serializer):
 
     name = serializers.CharField(max_length=200)
+    completeness = serializers.IntegerField()
     celltype=serializers.CharField(max_length=200)
     description = serializers.CharField(max_length=10000)
     gene_name = serializers.CharField(max_length=200)

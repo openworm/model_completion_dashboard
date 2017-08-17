@@ -59,6 +59,7 @@ class ChannelDetail(object):
 
 
 
+
 class Muscle(object):
     def __init__(self, name,completeness=None):
         self.name = name
