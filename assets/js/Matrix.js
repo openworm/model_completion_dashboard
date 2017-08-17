@@ -45,10 +45,10 @@ class Matrix extends React.Component {
             },{
                 from:3,
                 to: 4,
-                color:'#00CED1'
+                color:'#00FF00'
             },{
               from: 4,
-              color: '#00FF00'
+              color: '#006400'
             }]
 
             },
@@ -56,7 +56,7 @@ class Matrix extends React.Component {
             legend: {
               enabled : false
             },
-            
+
          //
         //     legend: {
         //      title: {

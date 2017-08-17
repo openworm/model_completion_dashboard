@@ -44,10 +44,10 @@ class ChannelMatrix extends React.Component {
             },{
                 from:3,
                 to: 4,
-                color:'#00CED1'
+                color:'#00FF00'
             },{
               from: 4,
-              color: '#00FF00'
+              color: '#006400'
             }]
 
             },
