@@ -11,7 +11,7 @@ import operator
 import json
 from django.http import HttpResponse
 from django.conf import settings
-
+from modelcompletion.models import Neuron as N,IonChannel as IC,Muscle as M
 from .serializers import NeuronSerializer,ChannelSerializer, MuscleSerializer, CellSerializer, NeuronDetailSerializer, MuscleDetailSerializer,IonChannelSerializer,ChannelDetailSerializer
 
 
@@ -20,7 +20,7 @@ class Neuron(object):
 
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,4)
+        self.completeness= N.objects.get(name=name).completion
 
 class NeuronDetail(object):
     celltype=None
@@ -35,7 +35,7 @@ class NeuronDetail(object):
         self.celltype = "neuron"
         self.name = neuron.name()
         self.type = neuron.type()
-        self.completeness=randint(0,4)
+        self.completeness=N.objects.get(name=neuron.name()).completion
         self.receptors = sorted(neuron.receptors())
         self.innexin = sorted(neuron.innexin())
         self.neurotransmitter = sorted(neuron.neurotransmitter())
@@ -52,7 +52,7 @@ class ChannelDetail(object):
         self.celltype = "ionchannel"
         self.name = channel.name()
         self.description = channel.description()
-        self.completeness=randint(0,4)
+        self.completeness=IC.objects.get(name=channel.name()).completion
         self.gene_name = channel.gene_name()
         self.gene_WB_ID = channel.gene_WB_ID()
         self.expression = channel.expression_pattern()
@@ -62,12 +62,12 @@ class ChannelDetail(object):
 class Muscle(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,4)
+        self.completeness= M.objects.get(name=name).completion
 
 class IonChannel(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,4)
+        self.completeness= IC.objects.get(name=name).completion
 
 class MuscleDetail(object):
     name= None
@@ -78,14 +78,14 @@ class MuscleDetail(object):
     def __init__(self, muscle):
         self.celltype = "muscle"
         self.name = muscle.name()
-        self.completeness=randint(0,4)
+        self.completeness= M.objects.get(name=muscle.name()).completion
         self.neurons = sorted(muscle.neurons())
         self.receptors = sorted(muscle.receptors())
 
 class Channel(object):
     def __init__(self, name,completeness=None):
         self.name = name
-        self.completeness=randint(0,4)
+        self.completeness= IC.objects.get(name=name).completion
 
 class Cell(object):
     def __init__(self, name):
@@ -212,7 +212,6 @@ class FindCell(APIView):
 
         neurons=[]
         muscles=[]
-        Channels = [Channel(name="SABD"),Channel(name="RMDDR"),Channel(name="CEPVL")]
         for neuron in P.Neuron().load():
             neurons.append(str(neuron.name()))
         for muscle in P.Muscle().load():
