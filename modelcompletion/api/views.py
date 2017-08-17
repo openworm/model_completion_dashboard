@@ -158,7 +158,7 @@ class PharynxMuscles(APIView):
             input_file = open(os.path.join(settings.DATA_DIR,'pharynxmuscles.csv'))
             file_reader = csv.DictReader(input_file)
             for row in file_reader:
-                Pharynmuscles.append(Muscle(name = str(row["Pharynx muscles"])))
+                Pharynmuscles.append(Muscle(name = str(row["Pharynx muscles"]).upper()))
         finally:
             print "done"
 
