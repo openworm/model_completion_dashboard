@@ -20,6 +20,7 @@ class Command(BaseCommand):
         print 'calculating neuron completion scores'
         score=0
         for n in P.Neuron().load():
+            score = 0
             if len(n.type())>0:
                 score+=1
             if len(n.receptor())>0:
@@ -36,7 +37,7 @@ class Command(BaseCommand):
                 score+=1
             for ch in n.channel():
                 score+=IonChannel.objects.get(name=str(ch.name())).completion
-            score = (score/12)*5;
+            score = int((float(score)/(7+5*len(n.channel())))*float(5));
             neuron = Neuron(name=n.name(),completion=score)
             neuron.save()
         print 'done'
@@ -45,13 +46,14 @@ class Command(BaseCommand):
         print 'calculating muscle completion scores'
         score=0
         for m in P.Muscle().load():
+            score =0
             if len(m.neurons())>0:
                 score+=1
             if len(m.receptors())>0:
                 score+=1
             for ch in m.channel():
                 score+=IonChannel.objects.get(name=str(ch.name())).completion
-            score = (score/7)*5;
+            score = int((float(score)/(2+5*len(m.channel())))*float(5));
             muscle= Muscle(name=m.name(),completion=score)
             muscle.save()
         print 'done'
