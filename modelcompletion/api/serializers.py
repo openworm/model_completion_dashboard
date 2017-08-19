@@ -39,6 +39,7 @@ class ChannelDetailSerializer(serializers.Serializer):
     gene_WB_ID = serializers.CharField(max_length=200)
     gene_class = serializers.CharField(max_length=200)
     expression_pattern = serializers.CharField(max_length=200)
+    neuroML_file = serializers.CharField(max_length=500)
 
 class MuscleDetailSerializer(serializers.Serializer):
 

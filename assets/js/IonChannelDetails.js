@@ -225,6 +225,24 @@ class IonChannelDetails extends React.Component{
             </ul>
         </td>
     </tr>
+    <tr>
+        <td>
+            NeuroML File:
+        </td>
+        <td>
+            <ul>
+            {(() => {
+              if (this.state.channelDetail.neuroML_file)
+              {
+              return <a href={this.state.channelDetail.neuroML_file}>File Link</a>
+         }
+         else {
+           return <li>Data not available </li>;
+         }
+         })()}
+            </ul>
+        </td>
+    </tr>
     </tbody>
     </Rb.Table>
 </div>;

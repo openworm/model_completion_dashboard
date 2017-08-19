@@ -41,6 +41,8 @@ class NeuronDetail(object):
         self.neurotransmitter = sorted(neuron.neurotransmitter())
         self.neuropeptide = sorted(neuron.neuropeptide())
 
+
+
 class ChannelDetail(object):
     name = None
     description = None
@@ -48,6 +50,7 @@ class ChannelDetail(object):
     gene_WB_ID = None
     gene_class = None
     expression_pattern = None
+    neuroML_file = None
     def __init__(self, channel):
         self.celltype = "ionchannel"
         self.name = channel.name()
@@ -56,9 +59,7 @@ class ChannelDetail(object):
         self.gene_name = channel.gene_name()
         self.gene_WB_ID = channel.gene_WB_ID()
         self.expression = channel.expression_pattern()
-
-
-
+        self.neuroML_file = channel.neuroML_file()
 
 class Muscle(object):
     def __init__(self, name,completeness=None):
