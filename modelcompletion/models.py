@@ -1,6 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+
+class IonChannel(models.Model):
+    name = models.CharField(null=True, max_length=300)
+    completion = models.IntegerField(default=0)
+
+class Neuron(models.Model):
+    name = models.CharField(null=True, max_length=300)
+    completion = models.IntegerField(default=170)
+
+class Muscle(models.Model):
+    name = models.CharField(null=True, max_length=300)
+    completion = models.IntegerField(default=170)
+
+
 '''
 class ParamDict(models.Model):
     name = models.CharField(max_length=50)

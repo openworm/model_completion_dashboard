@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import PyOpenWorm as P
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,6 +26,8 @@ SECRET_KEY = 'd0vy02-g#nq@lg!s%5v$w(jilj@af791#1-3k9y7ea3c)djj!w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+P.connect()
 
 ALLOWED_HOSTS = []
 
@@ -37,7 +41,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pyopenworm'
+    'modelcompletion',
+    'rest_framework',
+    'webpack_loader'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -104,6 +110,9 @@ STATIC_URL = '/static/'
 
 # Pycharm detected this
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
+
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates').replace('\\', '/'),
 )
@@ -120,11 +129,21 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, 'assets'),
     os.path.join(
         os.path.dirname(__file__),
         'static',
     ),
 )
+
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
 
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 MEDIA_URL = '/media/'

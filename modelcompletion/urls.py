@@ -15,23 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from views import index, Neurons, Neuron, Muscles, Muscle, Channel, Channels
-from views import Evidence, Evidences
+from views import Landing, SearchSuggestion
 
 
 urlpatterns = [
-    url(r'^$', index, name='index'),
 
-    url(r'^neurons$', Neurons, name='neurons-index'),
-    url(r'^neuron/(?P<neuron_id>\w+)$', Neuron, name='neuron-index'),
-
-    url(r'^muscles$', Muscles, name='muscles-index'),
-    url(r'^muscle/(?P<muscle_id>\w+)$', Muscle, name='muscle-index'),
-
-    url(r'^channels$', Channels, name='channels-index'),
-    url(r'^channel/(?P<channel_id>\w+)$', Channel, name='channel-index'),
-
-    url(r'^evidences$', Evidences, name='evidences-index'),
-    url(r'^evidence/(?P<evidence_id>\w+)$', Evidence, name='evidence-index'),
+    url(r'^landing$', Landing, name='landing'),
+    url(r'^channel$', Landing, name='channels'),
+    url(r'^getsuggestions$',SearchSuggestion.as_view(),name="getsuggestions"),
 
 ]

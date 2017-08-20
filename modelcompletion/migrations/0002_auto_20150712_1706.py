@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pyopenworm', '0001_initial'),
+        ('modelcompletion', '0001_initial'),
     ]
 
     operations = [

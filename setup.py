@@ -4,17 +4,17 @@ from setuptools import setup
 
 setup(
     # GETTING-STARTED: set your app name:
-    name='pyopenworm',
+    name='openworm-model-dashboard',
     # GETTING-STARTED: set your app name:
-    version='1.0',
+    version='0.1',
     # GETTING-STARTED: set your app description:
-    description='PyOpenWorm App',
+    description='OpenWorm Model Completion Dashboard',
     # GETTING-STARTED: set author name (your name):
     author='OpenWorm',
     # GETTING-STARTED: set author name (your name):
-    author_email='example@example.com',
+    author_email='info@openworm.org',
     # GETTING-STARTED: set author name (your name):
-    url='https://github.com/openworm/PyOpenWorm',
+    url='https://github.com/openworm/model-completion-dashboard',
     # GETTING-STARTED: define required django version:
-    install_requires=['Django<=1.8'],
+    install_requires=['Django<=1.8', 'djangorestframework', 'django-webpack-loader'],
 )

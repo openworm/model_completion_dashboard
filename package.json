@@ -1,0 +1,42 @@
+{
+  "name": "model_completion_dashboard",
+  "version": "1.0.0",
+  "description": "Model Completion Dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "./node_modules/.bin/webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openworm/model_completion_dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/openworm/model_completion_dashboard/issues"
+  },
+  "homepage": "https://github.com/openworm/model_completion_dashboard#readme",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "highcharts": "^5.0.12",
+    "jquery": "^3.2.1",
+    "node-sass": "^4.5.3",
+    "preset": "^1.0.0",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.30.0",
+    "react-bootstrap-typeahead": "^1.4.2",
+    "react-dom": "^15.6.1",
+    "react-router": "^3.0.5",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0",
+    "webpack-bundle-tracker": "^0.2.0"
+  }
+}

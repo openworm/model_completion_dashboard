@@ -1,0 +1,6 @@
+**/*.pyc
+**/*.egg
+node_modules/
+openworm_model_dashboard.egg-info/*
+pyopenworm.egg-info/*
+wsgi/*

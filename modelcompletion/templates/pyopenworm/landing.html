@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load render_bundle from webpack_loader %}
+{% load staticfiles %}
+{% load i18n %}
+{% load dict_filter %}
+{% block page_title %}{% trans 'Home' %}{% endblock %}
+{% block page_header %}{% trans 'Home' %}{% endblock %}
+{% block breadcrumb %}
+<li class="active">{% trans 'Home' %}</li>
+{% endblock %}
+{% block content %}
+
+<div id="app"></div>
+{% render_bundle 'main' %}
+
+{% endblock %}
