@@ -1,0 +1,1 @@
+docker run -d --name mcd -p 8000:8000 openworm/mcd
