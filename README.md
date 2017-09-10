@@ -2,8 +2,8 @@
 
 #### Overview
 
-Efforts have been made to model C.elegans, and data has been collected from research papers and various sources to do so. Now it has become important to record and track progress.
-Model Completion Dashboard does exactly this, using PyOpenWorm as a data resource, this application represents the current state of affairs for C.elegans modelling. The user can now know at a glance how far we have come in modelling the worm and how far we still have to go.
+OpenWorm has been collecting data about the C. elegans nervous system from [research papers and online databases](https://pyopenworm.readthedocs.io/en/latest/data_sources.html) . Now it has become important to record and track progress.
+Model Completion Dashboard does exactly this, using PyOpenWorm as a data resource, this application represents the current set of data aggregated so far for OpenWorm nervous system modelling. The user can now know at a glance how far we have come in gathering data about the worm's nervous system and how far we still have to go.
 
 http://docs.openworm.org/en/latest/Projects/muscle-neuron-integration/#model-completion-dashboard
 
