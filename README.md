@@ -48,4 +48,5 @@ Run with Docker
 
 Install Docker
 
+`rebuild.sh`
 `run.sh`
