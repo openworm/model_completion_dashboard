@@ -14,22 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf import settings
-from django.conf.urls import include, url, patterns
+from django.urls import include
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+
+from modelcompletion.views import index
 
 
 urlpatterns = [
     url(r'^auth/', include('django.contrib.auth.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^index$', 'modelcompletion.views.index'),
+    url(r'^admin/', admin.site.urls),
+    url(r'^index$', index),
 
     url(r'^pyopenworm/',
-        include('modelcompletion.urls',
-                namespace="modelcompletion"),),
+        include(('modelcompletion.urls', 'modelcompletion'), namespace="modelcompletion"),),
     url(r'^pyopenworm/api/',
-        include('modelcompletion.api.urls',
-                namespace="modelcompletion-api"),),
+        include(('modelcompletion.api.urls', 'modelcompletion-api'), namespace="modelcompletion-api"),),
 
-    url(r'^$', 'modelcompletion.views.index', name='home'),
+    url(r'^$', index, name='home'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

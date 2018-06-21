@@ -16,5 +16,5 @@ setup(
     # GETTING-STARTED: set author name (your name):
     url='https://github.com/openworm/model-completion-dashboard',
     # GETTING-STARTED: define required django version:
-    install_requires=['Django<=1.8', 'djangorestframework', 'django-webpack-loader'],
+    install_requires=['Django==2.0.6', 'djangorestframework', 'django-webpack-loader'],
 )

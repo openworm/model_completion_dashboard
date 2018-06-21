@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from views import Landing, SearchSuggestion
+from .views import Landing, SearchSuggestion
 
 
 urlpatterns = [
