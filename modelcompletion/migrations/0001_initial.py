@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('figure_ref_address', models.CharField(max_length=500, verbose_name=b'Figure number (e.g. 2A)')),
                 ('figure_ref_caption', models.TextField(verbose_name=b'Figure caption')),
                 ('file', models.ImageField(upload_to=b'modelcompletion/graph/%Y/%m/%d')),
-                ('experiment', models.ForeignKey(blank=True, to='modelcompletion.Experiment', null=True)),
+                ('experiment', models.ForeignKey(blank=True, to='modelcompletion.Experiment', null=True, on_delete=models.SET_NULL)),
             ],
         ),
         migrations.CreateModel(
@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('series_name', models.CharField(max_length=200)),
                 ('series_data', models.TextField()),
-                ('graph', models.ForeignKey(to='modelcompletion.Graph')),
+                ('graph', models.ForeignKey(to='modelcompletion.Graph', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -79,9 +79,9 @@ class Migration(migrations.Migration):
                 ('score', models.FloatField(default=None, null=True, verbose_name=b'Evaluated Score', blank=True)),
                 ('date', models.DateTimeField(auto_now=True)),
                 ('neuroML_file', models.FilePathField()),
-                ('channel_name', models.ForeignKey(to='modelcompletion.IonChannel')),
-                ('experiment', models.ForeignKey(to='modelcompletion.Experiment')),
-                ('graph', models.ForeignKey(to='modelcompletion.Graph')),
+                ('channel_name', models.ForeignKey(to='modelcompletion.IonChannel', on_delete=models.CASCADE)),
+                ('experiment', models.ForeignKey(to='modelcompletion.Experiment', on_delete=models.CASCADE)),
+                ('graph', models.ForeignKey(to='modelcompletion.Graph', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -106,7 +106,7 @@ class Migration(migrations.Migration):
                 ('initial_voltage', models.FloatField(null=True, verbose_name=b'Initial voltage for current-clamp (V)', blank=True)),
                 ('mutants', models.TextField(null=True, verbose_name=b'Additional ion channel mutants (e.g. nf100,n582)', blank=True)),
                 ('blockers', models.TextField(null=True, verbose_name=b'Ion channel blockers (e.g. 500e-6 Cd2+,)', blank=True)),
-                ('experiment', models.ForeignKey(to='modelcompletion.Experiment')),
+                ('experiment', models.ForeignKey(to='modelcompletion.Experiment', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -122,7 +122,7 @@ class Migration(migrations.Migration):
                 ('subject', models.CharField(max_length=300, choices=[(b'Genomics', b'Genomics'), (b'Proteomics', b'Proteomics'), (b'Electrophysiology', b'Electrophysiology'), (b'Other', b'Other')])),
                 ('file_path', models.FilePathField(null=True, blank=True)),
                 ('channels', models.ManyToManyField(to='modelcompletion.IonChannel')),
-                ('username', models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL)),
+                ('username', models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
@@ -133,22 +133,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ionchannelmodel',
             name='username',
-            field=models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='graph',
             name='patch_clamp',
-            field=models.ForeignKey(blank=True, to='modelcompletion.PatchClamp', null=True),
+            field=models.ForeignKey(blank=True, to='modelcompletion.PatchClamp', null=True, on_delete=models.SET_NULL),
         ),
         migrations.AddField(
             model_name='experiment',
             name='reference',
-            field=models.ForeignKey(to='modelcompletion.Reference'),
+            field=models.ForeignKey(to='modelcompletion.Reference', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='experiment',
             name='username',
-            field=models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(verbose_name=b'Contributer', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='cell',
